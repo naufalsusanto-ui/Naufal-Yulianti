@@ -113,11 +113,24 @@ footer{text-align:center;padding:20px;background:#55343b;color:#ead1d3;font-size
 @keyframes petalDrift{0%,100%{transform:translate3d(0,0,0) rotate(0deg);opacity:.24}50%{transform:translate3d(8px,-13px,0) rotate(12deg);opacity:.42}}
 @keyframes roseGlow{0%,100%{box-shadow:0 0 0 rgba(183,121,131,0)}50%{box-shadow:0 0 24px rgba(183,121,131,.18)}}
 @keyframes musicBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes floralSway{0%,100%{translate:0 0;rotate:-1deg;opacity:.78}50%{translate:0 -8px;rotate:1.5deg;opacity:1}}
 .cover-inner>*{animation:coverRise .8s both;animation-delay:calc(var(--enter-order, 0)*100ms)}
 .cover-inner .eyebrow{--enter-order:0}.cover-inner>p{--enter-order:1}.cover-inner h1{--enter-order:2}.cover-inner .cover-date{--enter-order:3}.cover-inner #open-invitation{--enter-order:4}.cover-inner .cover-note{--enter-order:5}
-.section,.countdown-section,.closing{position:relative;isolation:isolate}
-.section:before,.section:after{content:"❀";position:absolute;z-index:-1;pointer-events:none;font-family:Georgia,serif;color:rgba(183,121,131,.18);font-size:clamp(3.5rem,8vw,7rem);line-height:1;animation:petalDrift 8s ease-in-out infinite}
-.section:before{top:24px;left:clamp(8px,3vw,42px)}.section:after{right:clamp(8px,3vw,42px);bottom:24px;animation-delay:-4s;font-size:clamp(2.8rem,6vw,5rem)}
+.section,.countdown-section,.closing,.hero{position:relative;isolation:isolate}
+/* Ornamen floral vektor transparan: berada di atas latar dan di bawah konten. */
+.section:before,.section:after,.hero:before,.hero:after,.closing:after{
+ content:"";position:absolute;z-index:0;pointer-events:none;width:clamp(125px,22vw,250px);height:clamp(145px,25vw,280px);
+ background:url("assets/images/floral-corner.svg") center/contain no-repeat;opacity:.92;
+ animation:floralSway 9s ease-in-out infinite;transform-origin:bottom left
+}
+.section:before,.hero:before{top:0;left:0}
+.section:after,.hero:after{right:0;bottom:0;transform:scaleX(-1) rotate(-5deg);animation-delay:-4.5s;transform-origin:bottom right}
+.section .wrap,.hero-inner{position:relative;z-index:1}
+.countdown-section:before,.countdown-section:after{content:"";position:absolute;z-index:0;width:clamp(140px,24vw,270px);height:clamp(160px,28vw,300px);background:url("assets/images/floral-corner.svg") center/contain no-repeat;opacity:.42;pointer-events:none;animation:floralSway 10s ease-in-out infinite}
+.countdown-section:before{left:0;top:0}.countdown-section:after{right:0;bottom:0;transform:scaleX(-1);animation-delay:-5s}
+.countdown-section>*{position:relative;z-index:1}
+.closing:after{right:0;bottom:0;transform:scaleX(-1);opacity:.55}
+.hero:before{top:0;left:0}.hero:after{right:0;bottom:0;animation-delay:-4s}
 .section .wrap{position:relative;z-index:1}
 .reveal{opacity:0;transform:translateY(26px) scale(.99);filter:blur(2px);transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1),filter .75s ease;transition-delay:var(--reveal-delay,0ms);will-change:opacity,transform}
 .reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0);will-change:auto}
@@ -138,7 +151,7 @@ footer{text-align:center;padding:20px;background:#55343b;color:#ead1d3;font-size
 .music-button:hover{transform:scale(1.1);background:#f3e0e2}
 .topbar{transition:box-shadow .3s ease}.topbar:focus-within{box-shadow:0 8px 25px rgba(107,64,72,.08)}
 .closing .ornament{animation-duration:6.5s}
-@media(max-width:720px){.section:before{top:12px;left:5px}.section:after{right:5px;bottom:12px}.reveal{transform:translateY(18px)}}
+@media(max-width:720px){.section:before,.hero:before{top:0;left:0}.section:after,.hero:after{right:0;bottom:0}.section:before,.section:after,.hero:before,.hero:after,.closing:after{width:clamp(95px,29vw,155px);height:clamp(120px,34vw,180px);opacity:.78}.reveal{transform:translateY(18px)}}
 
 @media(max-width:720px){
  .section{padding:72px 18px}.nav-links{display:none;position:absolute;top:58px;left:0;right:0;background:var(--paper);padding:18px 22px 24px;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:14px}
