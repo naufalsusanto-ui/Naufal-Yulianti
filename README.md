@@ -1,45 +1,35 @@
-# Template Undangan Pernikahan — Dusty Pink & Sentuhan Jawa
+# Undangan Pernikahan Naufal & Yulianti
 
-Versi pratinjau premium dengan dusty pink, blush, rosewood, tipografi editorial, bahasa Indonesia dengan sentuhan Jawa, foto prewedding sebagai media utama, serta kontrol musik.
+Template website undangan pernikahan dengan tema dusty pink dan Bahasa Indonesia.
 
-## Status
-**Frontend preview only.** Form RSVP dan ucapan bekerja lokal di browser untuk demonstrasi; belum tersambung ke Google Sheets atau Apps Script. Belum di-deploy ke GitHub Pages. Tanggal 1 Januari 2027 hanyalah contoh.
+## Data acara dari PDF
+- Mempelai pria: Naufal Zain Susanto
+- Orang tua mempelai pria: Bapak Budi Susanto dan Ibu Teti Karyati
+- Mempelai wanita: Yulianti Effendi
+- Orang tua mempelai wanita: Bapak Rustam Effendi dan Ibu Wiwin Winangsih
+- Hari/tanggal: Minggu, 27 Desember 2026
+- Akad nikah: 08.00 WIB sampai selesai
+- Resepsi: 11.00–14.00 WIB
+- Tempat: Boemi AOM, Jl. Ciledug No. 268B, Garut
 
-## Cara melihat
-1. Ekstrak ZIP.
-2. Jalankan server lokal dari folder:
-   - `python -m http.server 8000`
-   - Buka `http://localhost:8000`
-3. Atau buka `index.html` langsung. Server lokal lebih baik untuk uji clipboard dan perilaku browser.
+## Cara unggah ke GitHub Pages
+Unggah isi folder ini ke root repositori `Naufal-Yulianti`, sehingga `index.html` terlihat langsung di halaman utama repositori. Pastikan GitHub Pages memakai branch `main` dan folder `/(root)`.
 
-## Personalisasi
-Buka `index.html`, cari `const WEDDING = {` di bagian akhir, lalu ubah nama mempelai/orang tua, tanggal dan jam, lokasi, tautan Maps, informasi hadiah, serta Apps Script URL nanti.
-
-- Tanggal: `YYYY-MM-DD`
-- Jam: `HH:MM` (contoh menggunakan WIB / `Asia/Jakarta`)
-- `mapsUrl`: isi tautan Google Maps venue yang sebenarnya.
-- `assets/audio/wedding-music.mp3`: tambahkan musik yang boleh digunakan.
-
-## Foto prewedding
-Letakkan foto milik sendiri dengan nama:
+## Foto
+Foto sampul dan galeri diambil dari PDF undangan yang diberikan:
 - `assets/images/cover.jpg`
-- `assets/images/hero.jpg`
-- `assets/images/groom.jpg`
-- `assets/images/bride.jpg`
-- `assets/images/gallery-1.jpg`
-- `assets/images/gallery-2.jpg`
-- `assets/images/gallery-3.jpg`
-- `assets/images/gallery-4.jpg`
+- `assets/images/gallery-1.jpg` sampai `gallery-4.jpg`
 
-Cover dan hero memakai gambar sebagai background CSS. Foto pasangan dan galeri memakai placeholder otomatis bila file belum tersedia. Optimalkan foto menjadi WebP/JPEG dengan ukuran yang sesuai untuk web sebelum dipublikasikan.
+Template profil mempelai mencari file `assets/images/groom.jpg` dan `assets/images/bride.jpg`. Jika ingin foto terpisah untuk tiap mempelai, tambahkan kedua file tersebut.
 
-## Integrasi dan deployment tahap berikutnya
-1. Buat Google Sheet privat dengan tab RSVP dan tab PublicWishes terpisah.
-2. Implementasikan Apps Script dengan validasi sisi server, mitigasi spam, idempotency, dan endpoint ucapan publik yang hanya mengirim pesan disetujui.
-3. Uji komunikasi browser dengan Apps Script; jangan gunakan `no-cors` sebagai bukti bahwa RSVP tersimpan.
-4. Konfigurasikan Apps Script URL di aplikasi.
-5. Upload repository ke GitHub, aktifkan GitHub Pages, lalu uji URL produksi.
-6. Jangan simpan kredensial rahasia atau data RSVP privat dalam repository publik.
+## Musik
+Untuk musik latar, tambahkan file `assets/audio/wedding-music.mp3`. Folder audio belum berisi musik karena file musik tidak disertakan dalam PDF.
 
-## Catatan bahasa
-Naskah menggunakan bahasa Indonesia dengan sentuhan bahasa Jawa krama sebagai contoh. Sebaiknya minta penutur Jawa yang dipercaya memeriksa pilihan tingkat tutur sebelum undangan resmi dibagikan.
+## Informasi hadiah
+Nomor rekening dan alamat pengiriman hadiah tidak tercantum pada PDF, sehingga bagian ini ditandai sebagai informasi menyusul. Isi setelah data yang benar tersedia.
+
+## RSVP
+Formulir RSVP masih berupa pratinjau di browser. Jawaban tidak tersimpan ke Google Sheets atau server. Perlu integrasi terpisah jika ingin mengumpulkan konfirmasi tamu secara daring.
+
+## Konfigurasi
+Data utama dapat diedit pada objek `const WEDDING` di bagian bawah `index.html`.
