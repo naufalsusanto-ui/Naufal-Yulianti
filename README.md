@@ -33,3 +33,8 @@ Formulir RSVP masih berupa pratinjau di browser. Jawaban tidak tersimpan ke Goog
 
 ## Konfigurasi
 Data utama dapat diedit pada objek `const WEDDING` di bagian bawah `index.html`.
+
+## Animasi
+- Animasi masuk saat menggulir halaman untuk judul, kartu mempelai, detail acara, galeri, formulir RSVP, hadiah, dan bagian penutup.
+- Ornamen floral bergerak lembut, foto memiliki efek zoom saat diarahkan, dan tombol memiliki efek interaksi.
+- Animasi menghormati pengaturan aksesibilitas `prefers-reduced-motion` pada perangkat pengunjung.
