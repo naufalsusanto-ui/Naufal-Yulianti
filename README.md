@@ -1,40 +1,20 @@
-# Undangan Pernikahan Naufal & Yulianti
+# Undangan Pernikahan Naufal & Yulianti — Dusty Pink Floral
 
-Template website undangan pernikahan dengan tema dusty pink dan Bahasa Indonesia.
+Template website statis berbahasa Indonesia dengan ornamen floral mawar blush, animasi lembut, galeri, hitung mundur, detail acara, dan kontrol musik.
 
-## Data acara dari PDF
-- Mempelai pria: Naufal Zain Susanto
-- Orang tua mempelai pria: Bapak Budi Susanto dan Ibu Teti Karyati
-- Mempelai wanita: Yulianti Effendi
-- Orang tua mempelai wanita: Bapak Rustam Effendi dan Ibu Wiwin Winangsih
-- Hari/tanggal: Minggu, 27 Desember 2026
-- Akad nikah: 08.00 WIB sampai selesai
-- Resepsi: 11.00–14.00 WIB
-- Tempat: Boemi AOM, Jl. Ciledug No. 268B, Garut
+## Cara menjalankan
+Buka `index.html` di browser untuk pratinjau. Google Fonts membutuhkan koneksi internet.
 
-## Cara unggah ke GitHub Pages
-Unggah isi folder ini ke root repositori `Naufal-Yulianti`, sehingga `index.html` terlihat langsung di halaman utama repositori. Pastikan GitHub Pages memakai branch `main` dan folder `/(root)`.
+## Upload ke GitHub Pages
+1. Ekstrak ZIP.
+2. Unggah `index.html` dan folder `assets` ke root repositori (folder utama, bukan ke dalam folder pembungkus).
+3. Pastikan `assets/images/floral-corner.svg`, foto galeri, dan `assets/audio/wedding-music.mp3` (jika digunakan) ikut terunggah.
+4. Di Settings → Pages, pilih branch `main` dan folder `/(root)`.
 
 ## Foto
-Foto sampul dan galeri diambil dari PDF undangan yang diberikan:
 - `assets/images/cover.jpg`
+- `assets/images/groom.jpg` dan `assets/images/bride.jpg` (opsional; jika tidak ada, tampil placeholder)
 - `assets/images/gallery-1.jpg` sampai `gallery-4.jpg`
 
-Template profil mempelai mencari file `assets/images/groom.jpg` dan `assets/images/bride.jpg`. Jika ingin foto terpisah untuk tiap mempelai, tambahkan kedua file tersebut.
-
-## Musik
-Untuk musik latar, tambahkan file `assets/audio/wedding-music.mp3`. Folder audio belum berisi musik karena file musik tidak disertakan dalam PDF.
-
-## Informasi hadiah
-Nomor rekening dan alamat pengiriman hadiah tidak tercantum pada PDF, sehingga bagian ini ditandai sebagai informasi menyusul. Isi setelah data yang benar tersedia.
-
-## RSVP
-Formulir RSVP masih berupa pratinjau di browser. Jawaban tidak tersimpan ke Google Sheets atau server. Perlu integrasi terpisah jika ingin mengumpulkan konfirmasi tamu secara daring.
-
-## Konfigurasi
-Data utama dapat diedit pada objek `const WEDDING` di bagian bawah `index.html`.
-
-## Animasi
-- Animasi masuk saat menggulir halaman untuk judul, kartu mempelai, detail acara, galeri, formulir RSVP, hadiah, dan bagian penutup.
-- Ornamen floral bergerak lembut, foto memiliki efek zoom saat diarahkan, dan tombol memiliki efek interaksi.
-- Animasi menghormati pengaturan aksesibilitas `prefers-reduced-motion` pada perangkat pengunjung.
+## Data dan keterbatasan
+Data pasangan dan acara diisi di objek `WEDDING` pada bagian akhir `index.html`. RSVP masih demo lokal dan belum terhubung ke Google Sheets. Detail rekening belum diisi.

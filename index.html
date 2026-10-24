@@ -116,42 +116,60 @@ footer{text-align:center;padding:20px;background:#55343b;color:#ead1d3;font-size
 @keyframes floralSway{0%,100%{translate:0 0;rotate:-1deg;opacity:.78}50%{translate:0 -8px;rotate:1.5deg;opacity:1}}
 .cover-inner>*{animation:coverRise .8s both;animation-delay:calc(var(--enter-order, 0)*100ms)}
 .cover-inner .eyebrow{--enter-order:0}.cover-inner>p{--enter-order:1}.cover-inner h1{--enter-order:2}.cover-inner .cover-date{--enter-order:3}.cover-inner #open-invitation{--enter-order:4}.cover-inner .cover-note{--enter-order:5}
-.section,.countdown-section,.closing,.hero{position:relative;isolation:isolate}
-/* Ornamen floral vektor transparan: berada di atas latar dan di bawah konten. */
-.section:before,.section:after,.hero:before,.hero:after,.closing:after{
- content:"";position:absolute;z-index:0;pointer-events:none;width:clamp(125px,22vw,250px);height:clamp(145px,25vw,280px);
- background:url("assets/images/floral-corner.svg") center/contain no-repeat;opacity:.92;
- animation:floralSway 9s ease-in-out infinite;transform-origin:bottom left
+/* FLORAL DECOR — watercolor-style corner assets, above section backgrounds and behind text */
+.section,.countdown-section,.closing,.hero,.topbar{position:relative;isolation:isolate}
+.section:before,.section:after,.hero:before,.hero:after,.closing:after,.topbar:before,.topbar:after,.cover:before{
+ content:"";position:absolute;z-index:0;pointer-events:none;width:clamp(150px,24vw,320px);height:clamp(170px,28vw,360px);
+ background:url("assets/images/floral-corner.svg") left top/contain no-repeat;opacity:.98;
+ animation:floralSway 10s ease-in-out infinite;transform-origin:top left
 }
-.section:before,.hero:before{top:0;left:0}
-.section:after,.hero:after{right:0;bottom:0;transform:scaleX(-1) rotate(-5deg);animation-delay:-4.5s;transform-origin:bottom right}
-.section .wrap,.hero-inner{position:relative;z-index:1}
-.countdown-section:before,.countdown-section:after{content:"";position:absolute;z-index:0;width:clamp(140px,24vw,270px);height:clamp(160px,28vw,300px);background:url("assets/images/floral-corner.svg") center/contain no-repeat;opacity:.42;pointer-events:none;animation:floralSway 10s ease-in-out infinite}
-.countdown-section:before{left:0;top:0}.countdown-section:after{right:0;bottom:0;transform:scaleX(-1);animation-delay:-5s}
+.section:before,.hero:before,.topbar:before,.cover:before{top:0;left:0}
+.section:after,.hero:after,.topbar:after,.closing:after{right:0;bottom:0;transform:scaleX(-1);transform-origin:top left;animation-delay:-5s}
+.section .wrap,.hero-inner,.nav{position:relative;z-index:1}
+.topbar:before,.topbar:after{width:clamp(78px,12vw,150px);height:clamp(70px,10vw,130px);opacity:.95}
+.topbar:after{top:0;bottom:auto;right:0;transform:scaleX(-1)}
+.cover{isolation:isolate;background:linear-gradient(160deg,rgba(68,40,47,.60),rgba(80,45,51,.22)),url('assets/images/cover.jpg') center/cover,var(--rose-deep)}
+.cover:before{width:clamp(160px,24vw,280px);height:clamp(180px,27vw,310px);opacity:.94;z-index:0}
+.cover-inner{z-index:1}
+.countdown-section{overflow:hidden}
+.countdown-section:before,.countdown-section:after{content:"";position:absolute;z-index:0;width:clamp(145px,23vw,290px);height:clamp(165px,26vw,320px);background:url("assets/images/floral-corner.svg") left top/contain no-repeat;opacity:.72;pointer-events:none;animation:floralSway 11s ease-in-out infinite}
+.countdown-section:before{left:0;top:0}.countdown-section:after{right:0;bottom:0;transform:scaleX(-1);animation-delay:-5.5s}
 .countdown-section>*{position:relative;z-index:1}
-.closing:after{right:0;bottom:0;transform:scaleX(-1);opacity:.55}
-.hero:before{top:0;left:0}.hero:after{right:0;bottom:0;animation-delay:-4s}
-.section .wrap{position:relative;z-index:1}
-.reveal{opacity:0;transform:translateY(26px) scale(.99);filter:blur(2px);transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1),filter .75s ease;transition-delay:var(--reveal-delay,0ms);will-change:opacity,transform}
-.reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0);will-change:auto}
+.closing:after{width:clamp(180px,28vw,330px);height:clamp(190px,30vw,350px);opacity:.88}
+/* A few soft falling petals give the page a subtle, romantic movement. */
+.petal-layer{position:fixed;inset:0;z-index:8;overflow:hidden;pointer-events:none;contain:strict}
+.petal-layer span{position:absolute;top:-8vh;width:12px;height:18px;border-radius:80% 10% 80% 10%;background:linear-gradient(145deg,#f6c9ce,#c97f8b);opacity:.5;filter:blur(.15px);animation:petalFall linear infinite}
+.petal-layer span:nth-child(1){left:8%;animation-duration:19s;animation-delay:-8s;scale:.8}
+.petal-layer span:nth-child(2){left:22%;animation-duration:24s;animation-delay:-15s;scale:1.1}
+.petal-layer span:nth-child(3){left:39%;animation-duration:21s;animation-delay:-4s;scale:.65}
+.petal-layer span:nth-child(4){left:56%;animation-duration:26s;animation-delay:-20s;scale:.9}
+.petal-layer span:nth-child(5){left:73%;animation-duration:22s;animation-delay:-11s;scale:1.15}
+.petal-layer span:nth-child(6){left:91%;animation-duration:25s;animation-delay:-17s;scale:.7}
+@keyframes petalFall{0%{transform:translate3d(0,-10vh,0) rotate(0);opacity:0}12%{opacity:.45}50%{transform:translate3d(34px,52vh,0) rotate(240deg)}88%{opacity:.35}100%{transform:translate3d(-20px,112vh,0) rotate(540deg);opacity:0}}
+.reveal{opacity:0;transform:translateY(24px) scale(.99);filter:blur(1.5px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1),filter .8s ease;transition-delay:var(--reveal-delay,0ms)}
+.reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
 .person,.event-card,.form-card,.gift-card,.wish,.bank-box{transition:transform .45s ease,box-shadow .45s ease,border-color .45s ease}
 .person:hover,.event-card:hover,.wish:hover,.bank-box:hover{transform:translateY(-6px);box-shadow:0 24px 55px rgba(107,64,72,.14);border-color:#d7b2b6}
 .portrait img,.gallery-tile img{transition:transform 1.1s cubic-bezier(.2,.65,.25,1),filter .8s ease}
-.person:hover .portrait img,.gallery-tile:hover img{transform:scale(1.055);filter:saturate(1.05)}
+.person:hover .portrait img,.gallery-tile:hover img{transform:scale(1.055);filter:saturate(1.06)}
 .gallery-tile{transition:transform .45s ease,box-shadow .45s ease}
 .gallery-tile:hover{transform:translateY(-4px);box-shadow:0 18px 36px rgba(107,64,72,.14)}
 .ornament{animation:softFloat 5.5s ease-in-out infinite}
 .countdown-section .time-box{transition:transform .35s ease,background .35s ease,border-color .35s ease}
 .countdown-section .time-box:hover{transform:translateY(-7px);background:rgba(255,255,255,.1);border-color:rgba(255,250,248,.65)}
-.countdown-section .time-box strong{transition:transform .25s ease}
 .btn{position:relative;overflow:hidden;transition:transform .25s ease,background .25s ease,box-shadow .25s ease}
 .btn:after{content:"";position:absolute;top:-60%;left:-45%;width:28%;height:220%;background:rgba(255,255,255,.22);transform:rotate(22deg) translateX(-220%);transition:transform .65s ease;pointer-events:none}
 .btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(135,82,94,.2)}.btn:hover:after{transform:rotate(22deg) translateX(620%)}
 .music-button{animation:musicBeat 3s ease-in-out infinite;transition:transform .25s ease,background .25s ease}
 .music-button:hover{transform:scale(1.1);background:#f3e0e2}
-.topbar{transition:box-shadow .3s ease}.topbar:focus-within{box-shadow:0 8px 25px rgba(107,64,72,.08)}
-.closing .ornament{animation-duration:6.5s}
-@media(max-width:720px){.section:before,.hero:before{top:0;left:0}.section:after,.hero:after{right:0;bottom:0}.section:before,.section:after,.hero:before,.hero:after,.closing:after{width:clamp(95px,29vw,155px);height:clamp(120px,34vw,180px);opacity:.78}.reveal{transform:translateY(18px)}}
+@media(max-width:720px){
+ .section:before,.section:after,.hero:before,.hero:after,.closing:after{width:clamp(100px,28vw,170px);height:clamp(120px,32vw,200px);opacity:.9}
+ .topbar:before,.topbar:after{width:80px;height:75px}
+ .cover{background-size:190px auto,cover,cover}
+ .petal-layer span{width:8px;height:12px;opacity:.35}
+ .reveal{transform:translateY(18px)}
+}
+@media(prefers-reduced-motion:reduce){.petal-layer{display:none}.reveal{opacity:1;transform:none;filter:none;transition:none}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
 @media(max-width:720px){
  .section{padding:72px 18px}.nav-links{display:none;position:absolute;top:58px;left:0;right:0;background:var(--paper);padding:18px 22px 24px;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:14px}
@@ -166,6 +184,7 @@ footer{text-align:center;padding:20px;background:#55343b;color:#ead1d3;font-size
 </style>
 </head>
 <body>
+<div class="petal-layer" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
 <div class="cover" id="cover" role="dialog" aria-modal="true" aria-label="Pambuka undangan">
   <div class="cover-inner">
     <div class="eyebrow">Undangan Pernikahan</div>
@@ -202,7 +221,7 @@ footer{text-align:center;padding:20px;background:#55343b;color:#ead1d3;font-size
 </div></section>
 
 <section class="countdown-section"><div class="eyebrow">Menuju hari istimewa</div><h2>Menanti Hari Bahagia</h2>
-  <div class="countdown" aria-label="Hitung mundur pernikahan"><div class="time-box"><strong id="days">—</strong><span>Dinten</span></div><div class="time-box"><strong id="hours">—</strong><span>Jam</span></div><div class="time-box"><strong id="minutes">—</strong><span>Menit</span></div><div class="time-box"><strong id="seconds">—</strong><span>Detik</span></div></div>
+  <div class="countdown" aria-label="Hitung mundur pernikahan"><div class="time-box"><strong id="days">—</strong><span>Hari</span></div><div class="time-box"><strong id="hours">—</strong><span>Jam</span></div><div class="time-box"><strong id="minutes">—</strong><span>Menit</span></div><div class="time-box"><strong id="seconds">—</strong><span>Detik</span></div></div>
   <p id="countdown-message">Minggu, 27 Desember 2026.</p>
 </section>
 
