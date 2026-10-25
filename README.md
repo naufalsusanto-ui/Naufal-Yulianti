@@ -15,7 +15,3 @@ Unggah `index.html` dan seluruh folder `assets` ke root repositori. Pastikan nam
 
 ## Catatan
 Peta membutuhkan koneksi internet. RSVP masih berupa demo lokal dan belum tersambung ke Google Sheets. Periksa kembali data acara sebelum membagikan undangan.
-
-
-## Koleksi ornamen SVG tambahan
-Website kini memakai koleksi SVG dekoratif mandiri di `assets/svg/`: buket peony, sudut mawar, ranting eucalyptus, bunga sakura, bingkai lengkung, pita sutra, ornamen filigree, pembatas emas, dan ranting mini. Ornamen berbeda per bagian, responsif untuk layar ponsel, berada di belakang konten, dan animasinya dinonaktifkan jika perangkat memilih reduced motion. Pastikan mengunggah seluruh folder `assets/` bersama `index.html` ke GitHub Pages.

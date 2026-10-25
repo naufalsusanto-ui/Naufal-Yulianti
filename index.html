@@ -355,49 +355,82 @@ footer{background:#602a35;color:#f1d6cf}
 }
 @media(prefers-reduced-motion:reduce){.closing .ornament{animation:none!important}}
 
-
-
-/* FLORAL ASSET COLLECTION v2 — variasi ornamen berbeda per bagian, tidak menutup teks */
-:root{--floral-gold:#c49b62;--floral-rose:#d98d91}
-/* Pastikan konten selalu berada di atas ornamen dekoratif. */
-.section,.hero,.countdown-section,.closing,.topbar,.cover{position:relative;isolation:isolate}
-.section .wrap,.hero-inner,.hero-photo,.nav,.countdown-section>* ,.cover-inner,.closing>*{position:relative;z-index:2}
-.section:before,.section:after,.hero:before,.hero:after,.topbar:before,.topbar:after,.countdown-section:before,.countdown-section:after,.cover:before,.closing:after{pointer-events:none!important;z-index:0!important;background-repeat:no-repeat!important;background-size:contain!important;filter:drop-shadow(0 5px 8px rgba(119,58,64,.12));}
-/* Hero: buket besar di sisi kiri, ranting ringan di kanan. */
-.hero:before{background-image:url('assets/svg/floral/peony-bouquet.svg')!important;width:clamp(170px,24vw,340px)!important;height:clamp(230px,35vw,460px)!important;left:-22px!important;top:4px!important;opacity:.9!important;animation:floralSway 13s ease-in-out infinite!important}
-.hero:after{background-image:url('assets/svg/floral/eucalyptus-branch.svg')!important;width:clamp(160px,24vw,330px)!important;height:clamp(95px,15vw,190px)!important;right:-8px!important;bottom:8px!important;transform:rotate(-12deg)!important;opacity:.82!important;animation:softFloat 12s ease-in-out infinite!important}
-/* Tiap bagian menggunakan aset berbeda agar tidak terlihat seperti salinan sudut yang sama. */
-#couple:before{background-image:url('assets/svg/decorations/arch-frame.svg')!important;width:clamp(115px,18vw,230px)!important;height:clamp(160px,25vw,320px)!important;left:-18px!important;top:18px!important;opacity:.36!important}
-#couple:after{background-image:url('assets/svg/floral/cherry-blossom.svg')!important;width:clamp(140px,20vw,260px)!important;height:clamp(150px,22vw,290px)!important;right:-10px!important;bottom:0!important;opacity:.78!important;transform:scaleX(-1) rotate(4deg)!important}
-#event:before{background-image:url('assets/svg/floral/eucalyptus-branch.svg')!important;width:clamp(150px,22vw,290px)!important;height:clamp(80px,13vw,170px)!important;left:-12px!important;top:16px!important;opacity:.74!important;transform:rotate(22deg)!important}
-#event:after{background-image:url('assets/svg/floral/mini-sprig.svg')!important;width:clamp(100px,15vw,195px)!important;height:clamp(140px,21vw,260px)!important;right:-8px!important;bottom:0!important;opacity:.7!important}
-#gallery:before{background-image:url('assets/svg/floral/rose-corner-left.svg')!important;width:clamp(145px,22vw,285px)!important;height:clamp(180px,28vw,360px)!important;left:-24px!important;top:-6px!important;opacity:.76!important}
-#gallery:after{background-image:url('assets/svg/floral/peony-bouquet.svg')!important;width:clamp(140px,21vw,270px)!important;height:clamp(180px,27vw,340px)!important;right:-18px!important;bottom:-8px!important;transform:scaleX(-1)!important;opacity:.78!important}
-#doa:before{background-image:url('assets/svg/floral/cherry-blossom.svg')!important;width:clamp(120px,18vw,230px)!important;height:clamp(130px,20vw,260px)!important;left:-10px!important;top:5px!important;opacity:.54!important}
-#doa:after{background-image:url('assets/svg/ornaments/filigree.svg')!important;width:clamp(140px,20vw,250px)!important;height:clamp(85px,13vw,160px)!important;right:-5px!important;bottom:8px!important;opacity:.72!important}
-#rsvp:before{background-image:url('assets/svg/floral/mini-sprig.svg')!important;width:clamp(100px,16vw,205px)!important;height:clamp(135px,21vw,270px)!important;left:-14px!important;top:8px!important;opacity:.62!important}
-#rsvp:after{background-image:url('assets/svg/floral/rose-corner-left.svg')!important;width:clamp(125px,19vw,245px)!important;height:clamp(155px,24vw,310px)!important;right:-16px!important;bottom:-8px!important;transform:scaleX(-1)!important;opacity:.58!important}
-#gift:before{background-image:url('assets/svg/floral/peony-bouquet.svg')!important;width:clamp(120px,18vw,225px)!important;height:clamp(160px,24vw,300px)!important;left:-18px!important;top:0!important;opacity:.64!important}
-#gift:after{background-image:url('assets/svg/ornaments/filigree.svg')!important;width:clamp(150px,22vw,270px)!important;height:clamp(90px,13vw,165px)!important;right:-8px!important;bottom:8px!important;opacity:.65!important}
-.countdown-section:before{background-image:url('assets/svg/floral/rose-corner-left.svg')!important;width:clamp(145px,21vw,280px)!important;height:clamp(175px,27vw,350px)!important;left:-18px!important;top:-10px!important;opacity:.6!important}
-.countdown-section:after{background-image:url('assets/svg/floral/eucalyptus-branch.svg')!important;width:clamp(150px,22vw,290px)!important;height:clamp(85px,13vw,170px)!important;right:-12px!important;bottom:10px!important;transform:scaleX(-1) rotate(-15deg)!important;opacity:.6!important}
-.topbar:before,.topbar:after{background-image:url('assets/svg/floral/mini-sprig.svg')!important;width:clamp(45px,7vw,88px)!important;height:clamp(55px,8vw,100px)!important;opacity:.8!important}
-.topbar:after{transform:scaleX(-1)!important}
-/* Pita sutra sebagai aksen tipis, bukan bidang penuh yang mengganggu. */
-#couple,#event,#gallery,#doa,#rsvp,#wishes,#gift{background-image:url('assets/svg/decorations/silk-ribbon.svg')!important;background-position:center bottom!important;background-size:100% 50px!important;background-repeat:no-repeat!important}
-.section-head h2:after,.closing h2:after{content:"";display:block;width:min(150px,35vw);height:16px;margin:10px auto 0;background:url('assets/svg/ornaments/gold-divider.svg') center/contain no-repeat!important;clip-path:none!important;opacity:.9}
-.closing{background-image:linear-gradient(135deg,rgba(135,82,94,.95),rgba(112,55,68,.97)),url('assets/svg/floral/rose-corner-left.svg'),url('assets/svg/floral/peony-bouquet.svg')!important;background-repeat:no-repeat!important;background-size:auto,clamp(150px,22vw,280px) clamp(180px,27vw,340px),clamp(140px,20vw,260px) clamp(170px,26vw,320px)!important;background-position:center,left -18px bottom -8px,right -15px top -5px!important}
-.closing:after{background-image:url('assets/svg/floral/cherry-blossom.svg')!important;width:clamp(120px,18vw,225px)!important;height:clamp(130px,20vw,255px)!important;opacity:.25!important}
+/* ===== REVISI ORNAMEN VARIATIF — motif berbeda di tiap bagian (buket, sulur, garland, sprig, sudut) ===== */
+:root{--o-sprig:url("assets/images/orn-sprig.svg");--o-bouquet:url("assets/images/orn-bouquet.svg");--o-vine:url("assets/images/orn-vine.svg");--o-garland:url("assets/images/orn-garland.svg");--o-corner:url("assets/images/floral-corner.svg")}
+@keyframes sprigIn{from{opacity:0;transform:scaleX(.45)}to{opacity:1;transform:none}}
+@keyframes bloomSway{0%,100%{rotate:-1.5deg;translate:0 0}50%{rotate:2deg;translate:0 -7px}}
+.section:before,.section:after,.countdown-section:before,.countdown-section:after{background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;opacity:.96!important;animation:bloomSway var(--d,11s) ease-in-out infinite!important;animation-delay:var(--dl,0s)!important;filter:drop-shadow(0 8px 10px rgba(125,55,63,.14))!important}
+/* ukuran dasar tiap motif */
+#couple:before,#gallery:after,#rsvp:before,#gift:before,#gift:after,#doa:after,#wishes:after,.countdown-section:before,.countdown-section:after{background-image:var(--o-bouquet)!important;width:clamp(150px,24vw,320px)!important;height:clamp(167px,27vw,355px)!important}
+#event:before,#event:after,#couple:after,#rsvp:after{background-image:var(--o-vine)!important;width:clamp(54px,8vw,110px)!important;height:clamp(234px,35vw,476px)!important}
+/* MEMPELAI: buket kanan-atas + sulur kiri-bawah */
+#couple:before{top:-6px!important;right:-14px!important;left:auto!important;bottom:auto!important;transform:scale(-1,-1)!important}
+#couple:after{left:-4px!important;bottom:-8px!important;top:auto!important;right:auto!important;transform:none!important;--dl:-3s}
+/* HITUNG MUNDUR: dua buket diagonal */
+.countdown-section:before{left:-18px!important;bottom:-10px!important;top:auto!important;right:auto!important;transform:none!important}
+.countdown-section:after{right:-18px!important;top:-8px!important;bottom:auto!important;left:auto!important;transform:scale(-1,-1)!important;--dl:-5s}
+/* ACARA: sulur di kedua sisi */
+#event:before{left:-4px!important;top:36px!important;right:auto!important;bottom:auto!important;transform:none!important}
+#event:after{right:-4px!important;bottom:30px!important;left:auto!important;top:auto!important;transform:scaleX(-1)!important;--dl:-4s}
+/* GALERI: sudut klasik kiri-atas + buket kanan-bawah */
+#gallery:before{background-image:var(--o-corner)!important}
+#gallery:after{right:-10px!important;bottom:-8px!important;left:auto!important;top:auto!important;transform:scaleX(-1)!important;--dl:-6s}
+/* DOA: garland menjuntai di atas + buket kiri-bawah */
+#doa:before{background-image:var(--o-garland)!important;background-repeat:repeat-x!important;background-size:auto 84px!important;background-position:top center!important;left:0!important;right:0!important;top:0!important;width:auto!important;height:84px!important;transform:none!important;animation:none!important;opacity:.95!important}
+#doa:after{left:-12px!important;bottom:-8px!important;right:auto!important;top:auto!important;transform:rotate(-4deg)!important}
+/* KONFIRMASI: buket kiri-atas + sulur kanan-bawah */
+#rsvp:before{left:-12px!important;top:-6px!important;right:auto!important;bottom:auto!important;transform:scaleY(-1)!important}
+#rsvp:after{right:-4px!important;bottom:-6px!important;left:auto!important;top:auto!important;transform:scaleX(-1)!important;--dl:-7s}
+/* UCAPAN: sudut kanan-atas + buket kecil kiri-bawah */
+#wishes:before{background-image:var(--o-corner)!important;left:auto!important;right:-14px!important;top:-12px!important;transform:scaleX(-1)!important}
+#wishes:after{width:clamp(120px,19vw,250px)!important;height:clamp(134px,21vw,278px)!important;left:-10px!important;bottom:-6px!important;right:auto!important;top:auto!important;transform:rotate(8deg)!important}
+/* HADIAH: buket mengapit dari dua sudut */
+#gift:before{left:-12px!important;top:-6px!important;right:auto!important;bottom:auto!important;transform:scaleY(-1)!important}
+#gift:after{right:-12px!important;bottom:-6px!important;left:auto!important;top:auto!important;transform:scaleX(-1) rotate(-6deg)!important;--dl:-5s}
+/* PEMBATAS JUDUL: sprig mawar tumbuh saat bagian muncul */
+.section-head:before,.hero-inner:before,.closing h2:before{content:"";display:block;width:min(300px,78%);height:63px;margin:0 auto 4px;background:var(--o-sprig) center/contain no-repeat}
+.section-head:before{opacity:0}.section-head.visible:before{animation:sprigIn 1.1s .15s cubic-bezier(.2,.7,.2,1) both}
+.hero-inner:before{animation:sprigIn 1.3s .5s cubic-bezier(.2,.7,.2,1) both}
+.closing h2:before{margin-bottom:12px;filter:brightness(1.4) saturate(.8)}
+/* SUDUT KARTU: buket mungil, kartu kiri & kanan berbeda arah */
+.event-card:after{content:"";position:absolute;width:82px;height:91px;top:-24px;right:-20px;background:var(--o-bouquet) center/contain no-repeat;transform:scale(-1,-1);pointer-events:none;filter:drop-shadow(0 4px 5px rgba(125,55,63,.12))}
+.event-card:nth-child(2):after{right:auto;left:-20px;transform:scaleY(-1)}
 @media(max-width:720px){
- .hero:before{width:clamp(115px,34vw,190px)!important;height:clamp(160px,46vw,250px)!important;left:-18px!important;opacity:.75!important}
- .hero:after{width:clamp(105px,31vw,175px)!important;height:clamp(70px,20vw,115px)!important;right:-12px!important;opacity:.65!important}
- #couple:before,#event:before,#gallery:before,#doa:before,#rsvp:before,#gift:before{width:clamp(90px,27vw,150px)!important;height:clamp(115px,34vw,190px)!important;left:-20px!important;opacity:.45!important}
- #couple:after,#event:after,#gallery:after,#doa:after,#rsvp:after,#gift:after{width:clamp(90px,26vw,145px)!important;height:clamp(115px,33vw,185px)!important;right:-18px!important;opacity:.45!important}
- .topbar:before,.topbar:after{width:44px!important;height:54px!important}
- #couple,#event,#gallery,#doa,#rsvp,#wishes,#gift{background-size:100% 32px!important}
+ #event:before,#event:after,#couple:after,#rsvp:after{width:46px!important;height:200px!important;opacity:.85!important}
+ #doa:before{background-size:auto 64px!important;height:64px!important}
+ .event-card:after{width:64px;height:71px}
 }
-@media(prefers-reduced-motion:reduce){.hero:before,.hero:after,.section:before,.section:after,.topbar:before,.topbar:after,.countdown-section:before,.countdown-section:after{animation:none!important}}
-
+@media(prefers-reduced-motion:reduce){.section:before,.section:after,.countdown-section:before,.countdown-section:after,.hero-inner:before,.section-head:before{animation:none!important}.section-head:before{opacity:1}}
+/* ===== ORNAMEN LUSH — karangan bunga lebat bergaya referensi (mawar berlapis, bunga putih, daun hijau tua, berry) ===== */
+:root{--o-lush:url("assets/images/orn-lush-corner.svg");--o-edge:url("assets/images/orn-lush-edge.svg")}
+.hero:before,.hero:after{background-image:var(--o-lush)!important;width:clamp(250px,38vw,520px)!important;height:clamp(340px,52vw,710px)!important;animation:bloomSway 13s ease-in-out infinite!important}
+.hero:before{left:-14px!important;top:-8px!important;transform:none!important}
+.hero:after{right:-14px!important;bottom:-10px!important;left:auto!important;top:auto!important;transform:scale(-1,-1)!important;animation-delay:-6s!important}
+/* tepi kiri-kanan bertingkat di bagian utama */
+#couple:before,#event:before,#gallery:before,#gift:before,#couple:after,#event:after,#gallery:after,#gift:after{background-image:var(--o-edge)!important;width:clamp(100px,16vw,220px)!important;height:clamp(355px,57vw,780px)!important}
+#couple:before,#event:before,#gallery:before,#gift:before{left:-6px!important;top:0!important;right:auto!important;bottom:auto!important;transform:none!important}
+#couple:after,#event:after,#gallery:after,#gift:after{right:-6px!important;bottom:0!important;left:auto!important;top:auto!important;transform:scale(-1,-1)!important}
+@media(max-width:720px){
+ #couple:before,#event:before,#gallery:before,#gift:before,#couple:after,#event:after,#gallery:after,#gift:after{width:84px!important;height:300px!important;opacity:.9!important}
+ .hero:before,.hero:after{width:210px!important;height:290px!important}
+}
+/* ===== ORNAMEN MERIAH — tirai sutra, bingkai lengkung emas, lentera, kilau emas ===== */
+:root{--o-drape-a:url("assets/images/orn-drape-a.svg");--o-drape-b:url("assets/images/orn-drape-b.svg");--o-arch:url("assets/images/orn-arch.svg");--o-lantern:url("assets/images/orn-lantern.svg");--o-sparkle:url("assets/images/orn-sparkle.svg")}
+@keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
+@keyframes lanternGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(255,200,120,.4))}50%{filter:drop-shadow(0 0 24px rgba(255,205,130,.85))}}
+@keyframes lanternSwing{0%,100%{rotate:-3deg}50%{rotate:3deg}}
+@keyframes drapeWave{0%,100%{translate:0 0}50%{translate:0 5px}}
+.drape{position:relative;z-index:4;height:clamp(70px,9vw,130px);margin:calc(clamp(70px,9vw,130px)/-2) 0;pointer-events:none;background:var(--o-drape-a) 0 0/100% 100% no-repeat;animation:drapeWave 9s ease-in-out infinite}
+.drape.b{background-image:var(--o-drape-b);animation-delay:-4s}.drape.f{transform:scaleX(-1)}
+.sparkle-layer{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.sparkle-layer:before,.sparkle-layer:after{content:"";position:absolute;inset:0;background:var(--o-sparkle) 0 0/360px 360px repeat;animation:twinkle 4.5s ease-in-out infinite}
+.sparkle-layer:after{background-position:170px 130px;background-size:290px 290px;animation-delay:-2.2s}
+.lantern{position:absolute;z-index:2;width:clamp(46px,6.2vw,84px);aspect-ratio:100/190;background:var(--o-lantern) center/contain no-repeat;pointer-events:none;animation:lanternGlow 3.8s ease-in-out infinite}
+.lantern.hang{transform-origin:50% 0;animation:lanternGlow 3.8s ease-in-out infinite,lanternSwing 6s ease-in-out infinite}
+.lantern.hang:before{content:"";position:absolute;left:50%;bottom:100%;width:1.6px;height:clamp(50px,9vw,120px);background:linear-gradient(transparent,#c9a068)}
+.arch-frame{position:absolute;inset:-16px -14px 4px;z-index:3;pointer-events:none;background:var(--o-arch) 0 0/100% 100% no-repeat}
+@media(max-width:720px){.lantern{width:44px}.arch-frame{inset:-12px -8px 4px}}
+@media(prefers-reduced-motion:reduce){.drape,.sparkle-layer:before,.sparkle-layer:after,.lantern{animation:none!important}.sparkle-layer:before,.sparkle-layer:after{opacity:.6}}
 </style>
 </head>
 <body>
@@ -419,7 +452,7 @@ footer{background:#602a35;color:#f1d6cf}
   <div class="nav-links" id="nav-links"><a href="#couple">Mempelai</a><a href="#event">Acara</a><a href="#gallery">Galeri</a><a href="#doa">Doa</a><a href="#rsvp">Konfirmasi</a><a href="#gift">Hadiah</a></div>
 </nav></header>
 <main>
-<section class="hero" id="home"><div class="hero-photo" aria-label="Foto prewedding Naufal dan Yulianti"><img src="assets/images/cover.jpg" alt="Naufal dan Yulianti"></div><div class="hero-inner reveal">
+<section class="hero" id="home"><div class="sparkle-layer" aria-hidden="true"></div><div class="lantern" aria-hidden="true" style="left:clamp(10px,3vw,44px);bottom:34px"></div><div class="hero-photo" aria-label="Foto prewedding Naufal dan Yulianti"><img src="assets/images/cover.jpg" alt="Naufal dan Yulianti"></div><div class="hero-inner reveal">
   <div class="eyebrow">Dengan penuh kebahagiaan, kami mengundang Anda</div><div class="ornament" aria-hidden="true">❀</div>
   <p class="serif" style="font-style:italic;font-size:1.45rem;margin:0">Pernikahan</p>
   <h1 id="hero-names">Naufal Zain Susanto <span>&amp;</span> Yulianti Effendi</h1>
@@ -428,20 +461,23 @@ footer{background:#602a35;color:#f1d6cf}
   <a class="btn outline" href="#event">Lihat Detail Acara ↓</a>
 </div></section>
 
+<div class="drape" aria-hidden="true"></div>
 <section class="section" id="couple"><div class="wrap">
   <div class="section-head reveal"><div class="eyebrow">Mengenal lebih dekat</div><h2>Kisah Cinta Kami</h2><p>Dengan cinta dan restu keluarga, kami memulai perjalanan baru.</p></div>
   <p class="story-intro reveal">“Cinta sejati bukan hanya tentang saling memandang, tetapi juga tentang berjalan bersama menuju masa depan.”</p>
   <div class="story-grid">
-    <article class="person reveal"><div class="portrait"><img src="assets/images/groom.jpg" alt="Foto mempelai pria" onerror="this.remove();this.parentElement.innerHTML='<span class=&quot;portrait-placeholder&quot;>Foto Mempelai Pria<br><small>assets/images/groom.jpg</small></span>'"></div><h3 id="groom-name">XXX</h3><p class="parents-label">Putra dari</p><p id="groom-parents">Bapak XXX &amp; Ibu XXX</p></article>
-    <article class="person reveal"><div class="portrait"><img src="assets/images/bride.jpg" alt="Foto mempelai wanita" onerror="this.remove();this.parentElement.innerHTML='<span class=&quot;portrait-placeholder&quot;>Foto Mempelai Wanita<br><small>assets/images/bride.jpg</small></span>'"></div><h3 id="bride-name">XXX</h3><p class="parents-label">Putri dari</p><p id="bride-parents">Bapak XXX &amp; Ibu XXX</p></article>
+    <article class="person reveal"><span class="arch-frame" aria-hidden="true"></span><div class="portrait"><img src="assets/images/groom.jpg" alt="Foto mempelai pria" onerror="this.remove();this.parentElement.innerHTML='<span class=&quot;portrait-placeholder&quot;>Foto Mempelai Pria<br><small>assets/images/groom.jpg</small></span>'"></div><h3 id="groom-name">XXX</h3><p class="parents-label">Putra dari</p><p id="groom-parents">Bapak XXX &amp; Ibu XXX</p></article>
+    <article class="person reveal"><span class="arch-frame" aria-hidden="true"></span><div class="portrait"><img src="assets/images/bride.jpg" alt="Foto mempelai wanita" onerror="this.remove();this.parentElement.innerHTML='<span class=&quot;portrait-placeholder&quot;>Foto Mempelai Wanita<br><small>assets/images/bride.jpg</small></span>'"></div><h3 id="bride-name">XXX</h3><p class="parents-label">Putri dari</p><p id="bride-parents">Bapak XXX &amp; Ibu XXX</p></article>
   </div>
 </div></section>
 
-<section class="countdown-section"><div class="eyebrow">Menuju hari istimewa</div><h2>Menanti Hari Bahagia</h2>
+<div class="drape b f" aria-hidden="true"></div>
+<section class="countdown-section"><div class="sparkle-layer" aria-hidden="true"></div><div class="eyebrow">Menuju hari istimewa</div><h2>Menanti Hari Bahagia</h2>
   <div class="countdown" aria-label="Hitung mundur pernikahan"><div class="time-box"><strong id="days">—</strong><span>Hari</span></div><div class="time-box"><strong id="hours">—</strong><span>Jam</span></div><div class="time-box"><strong id="minutes">—</strong><span>Menit</span></div><div class="time-box"><strong id="seconds">—</strong><span>Detik</span></div></div>
   <p id="countdown-message">Minggu, 27 Desember 2026.</p>
 </section>
 
+<div class="drape f" aria-hidden="true"></div>
 <section class="section" id="event"><div class="wrap">
   <div class="section-head reveal"><div class="eyebrow">Catat tanggalnya</div><h2>Detail Acara</h2><p>Dengan hormat, kami mengundang Anda untuk hadir.</p></div>
   <div class="events">
@@ -456,7 +492,8 @@ footer{background:#602a35;color:#f1d6cf}
   <div class="calendar-link"><a href="#" class="btn" id="calendar-link">＋ Simpan ke Google Calendar</a><div class="calendar-note">Silakan simpan tanggal acara agar tidak terlupa.</div></div>
 </div></section>
 
-<section class="section" id="gallery" style="background:#f8efee"><div class="wrap">
+<div class="drape b" aria-hidden="true"></div>
+<section class="section" id="gallery" style="background:#f8efee"><div class="lantern hang" aria-hidden="true" style="right:clamp(60px,20vw,300px);top:0"></div><div class="wrap">
   <div class="section-head reveal"><div class="eyebrow">Cerita yang kami kenang</div><h2>Galeri Cinta</h2><p>Kenangan indah yang menjadi bagian dari perjalanan kami.</p></div>
   <div class="gallery">
     <div class="gallery-tile tall"><img src="assets/images/gallery-1.jpg" alt="Foto prewedding utama" loading="lazy" onerror="this.remove();this.parentElement.insertAdjacentHTML('beforeend','<span class=&quot;portrait-placeholder&quot;>Foto Prewedding Utama<br><small>gallery-1.jpg</small></span>')"></div>
@@ -469,6 +506,7 @@ footer{background:#602a35;color:#f1d6cf}
   </div>
 </div></section>
 
+<div class="drape" aria-hidden="true"></div>
 <section class="section" id="doa" style="background:#fffaf8"><div class="wrap">
   <div class="section-head reveal"><div class="eyebrow">Doa dan harapan</div><h2>Ayat Pilihan</h2><p>Semoga pernikahan ini menjadi awal perjalanan yang penuh kasih, ketenteraman, dan keberkahan.</p></div>
   <div class="events">
@@ -477,6 +515,7 @@ footer{background:#602a35;color:#f1d6cf}
   </div>
 </div></section>
 
+<div class="drape b f" aria-hidden="true"></div>
 <section class="section rsvp-section" id="rsvp"><div class="wrap">
   <div class="section-head reveal"><div class="eyebrow">Konfirmasi kehadiran</div><h2>Konfirmasi Kehadiran &amp; Ucapan</h2><p>Kehadiran dan doa restu Anda merupakan kebahagiaan yang berarti bagi kami.</p></div>
   <div class="rsvp-layout">
@@ -498,14 +537,15 @@ footer{background:#602a35;color:#f1d6cf}
   <div class="wishes-list" id="wishes-list"><div class="empty-wishes">Belum ada ucapan. Anda dapat mencoba mengirim ucapan melalui formulir Konfirmasi Kehadiran.</div></div>
 </div></section>
 
-<section class="section gift-section" id="gift"><div class="wrap"><div class="gift-card reveal">
+<section class="section gift-section" id="gift"><div class="lantern" aria-hidden="true" style="left:clamp(12px,12vw,170px);bottom:26px"></div><div class="wrap"><div class="gift-card reveal">
   <div class="eyebrow">Tanda kasih</div><h3>Hadiah untuk Kami</h3>
   <p>Kehadiran dan doa restu Anda adalah hadiah terindah. Jika berkenan memberikan tanda kasih, informasi tersedia di bawah ini.</p>
   <div class="bank-box"><div class="eyebrow" id="bank-name">Informasi rekening</div><strong id="account-number">Informasi menyusul</strong><div class="account-holder">atas nama <span id="account-holder">Naufal &amp; Yulianti</span></div><button class="btn outline" id="copy-account" type="button" style="margin-top:16px">Salin Nomor Rekening</button></div>
   <div class="gift-address"><div class="eyebrow">Alamat pengiriman hadiah</div><p id="gift-address">Alamat pengiriman hadiah akan diisi.</p><button class="btn outline" id="copy-address" type="button">Salin Alamat</button></div><p id="copy-message" role="status" aria-live="polite" style="font-size:.75rem"></p>
 </div></div></section>
 
-<section class="closing"><div class="eyebrow">Dengan cinta dan rasa syukur</div><h2>Terima Kasih</h2><p>Terima kasih atas doa, cinta, dan restu yang telah diberikan. Semoga kebahagiaan selalu menyertai Anda semua.</p><div class="ornament" aria-hidden="true">❀</div><div class="serif" id="closing-names" style="font-size:2rem">XXX &amp; XXX</div></section>
+<div class="drape" aria-hidden="true"></div>
+<section class="closing"><div class="sparkle-layer" aria-hidden="true"></div><div class="eyebrow">Dengan cinta dan rasa syukur</div><h2>Terima Kasih</h2><p>Terima kasih atas doa, cinta, dan restu yang telah diberikan. Semoga kebahagiaan selalu menyertai Anda semua.</p><div class="ornament" aria-hidden="true">❀</div><div class="serif" id="closing-names" style="font-size:2rem">XXX &amp; XXX</div></section>
 </main>
 <footer>DIBUAT DENGAN CINTA · <span id="footer-names">Naufal &amp; Yulianti</span></footer>
 <audio id="background-music" src="assets/audio/wedding-music.mp3" preload="none" loop></audio>
