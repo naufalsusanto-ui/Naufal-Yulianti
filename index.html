@@ -105,7 +105,7 @@ body.locked{overflow:hidden}a{color:inherit}button,input,select,textarea{font:in
 .closing p{color:#f1dfdf;max-width:510px;margin:0 auto}.closing .ornament{color:#f0d6d8}
 footer{text-align:center;padding:20px;background:#55343b;color:#ead1d3;font-size:.65rem;letter-spacing:.12em}
 .music-button{position:fixed;right:18px;bottom:18px;z-index:9;width:50px;height:50px;border:1px solid #d6b5b9;border-radius:50%;background:var(--paper);color:var(--rose-deep);box-shadow:var(--shadow);cursor:pointer;font-size:1.1rem}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:none}
+.reveal{opacity:1;transform:none;transition:opacity .65s ease,transform .65s ease}.js-motion .reveal:not(.visible){opacity:1;transform:none}.reveal.visible{opacity:1;transform:none}
 
 /* ANIMASI ELEGAN: lembut, responsif, dan menghormati preferensi reduced motion */
 @keyframes coverRise{from{opacity:0;transform:translateY(22px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
@@ -262,6 +262,39 @@ footer{background:#602a35;color:#f1d6cf}
 @media(max-width:380px){.hero-photo{height:315px}.hero h1{font-size:2.9rem}.section:before,.section:after{width:108px;height:132px}}
 @media(prefers-reduced-motion:reduce){.hero-photo,.section:before,.section:after,.hero:before,.hero:after{animation:none!important}}
 
+
+/* PATCH REVISI: ornamen floral lebih tegas, komposisi lebih bervariasi */
+.section,.hero,.closing,.countdown-section{overflow:hidden}
+.section:before,.hero:before,.topbar:before,.cover:before,
+.section:after,.hero:after,.topbar:after,.closing:after,.cover:after{
+  background-image:url("assets/images/floral-corner.svg");
+  background-repeat:no-repeat;background-size:contain;opacity:1;
+  filter:drop-shadow(0 8px 12px rgba(111,48,56,.12));
+}
+.section:before{width:clamp(205px,30vw,430px);height:clamp(250px,39vw,510px);left:-18px;top:-14px;opacity:.98}
+.section:after{width:clamp(200px,29vw,410px);height:clamp(245px,38vw,490px);right:-14px;bottom:-14px;opacity:.96;transform:scaleX(-1) rotate(4deg)}
+.hero:before,.cover:before{width:clamp(230px,34vw,470px);height:clamp(280px,43vw,570px);left:-20px;top:-10px;opacity:1}
+.hero:after{width:clamp(210px,32vw,440px);height:clamp(260px,40vw,530px);right:-12px;bottom:-12px;opacity:1}
+.topbar:before,.topbar:after{width:clamp(75px,12vw,150px);height:clamp(90px,15vw,190px);opacity:.95}
+.closing:after{width:clamp(240px,35vw,480px);height:clamp(280px,42vw,560px);opacity:1}
+.countdown-section:before,.countdown-section:after{width:clamp(200px,31vw,430px);height:clamp(245px,38vw,510px);opacity:.92}
+.cover:after{background:none;inset:15px;border:1px solid rgba(245,215,184,.8);box-shadow:inset 0 0 0 5px rgba(255,250,248,.18)}
+.map-panel{position:relative;z-index:2;max-width:900px;margin:35px auto 12px;padding:22px;border:1px solid #e8c3b8;border-radius:22px;background:rgba(255,250,247,.91);box-shadow:0 18px 45px rgba(114,50,58,.10);text-align:center}
+.map-panel-head h3{font:400 clamp(1.8rem,4vw,2.5rem)/1.1 var(--serif);color:var(--rose-deep);margin:8px 0}
+.map-panel-head p{margin:0 0 18px;color:var(--muted)}
+.map-frame{height:clamp(240px,38vw,390px);overflow:hidden;border:1px solid #e5c6bd;border-radius:14px;background:#f4e7e2}
+.map-frame iframe{width:100%;height:100%;border:0;display:block}
+.map-open{margin-top:16px;background:var(--rose-deep);color:#fff8f5}
+@media(max-width:640px){
+ .section:before{width:clamp(145px,43vw,235px);height:clamp(180px,52vw,285px);left:-14px;top:-8px}
+ .section:after{width:clamp(145px,42vw,230px);height:clamp(180px,51vw,280px);right:-12px;bottom:-10px}
+ .hero:before,.cover:before{width:clamp(170px,48vw,260px);height:clamp(210px,60vw,320px)}
+ .hero:after{width:clamp(160px,45vw,245px);height:clamp(200px,57vw,310px)}
+ .map-panel{padding:14px;margin:25px 0}
+ .map-frame{height:280px}
+}
+@media(prefers-reduced-motion:reduce){.reveal,.section:before,.section:after,.hero:before,.hero:after,.cover:before{animation:none!important;transition:none!important}}
+
 </style>
 </head>
 <body>
@@ -311,6 +344,11 @@ footer{background:#602a35;color:#f1d6cf}
   <div class="events">
     <article class="event-card reveal"><div class="event-icon" aria-hidden="true">❀</div><div class="eyebrow">Pernikahan</div><h3>Akad Nikah</h3><div class="event-time" id="ceremony-time">Minggu, 27 Desember 2026 · 08.00 WIB</div><address id="venue-address-1">Nama tempat dan alamat acara.</address><a class="btn outline maps-link" href="#" target="_blank" rel="noopener noreferrer">Petunjuk Lokasi</a></article>
     <article class="event-card reveal"><div class="event-icon" aria-hidden="true">❀</div><div class="eyebrow">Resepsi</div><h3>Resepsi</h3><div class="event-time" id="reception-time">Minggu, 27 Desember 2026 · 11.00–14.00 WIB</div><address id="venue-address-2">Nama tempat dan alamat acara.</address><a class="btn outline maps-link" href="#" target="_blank" rel="noopener noreferrer">Petunjuk Lokasi</a></article>
+  </div>
+  <div class="map-panel reveal" aria-label="Peta lokasi acara">
+    <div class="map-panel-head"><div class="eyebrow">Lokasi acara</div><h3>Temukan lokasi kami</h3><p>Boemi AOM · Jl. Ciledug No. 268B, Garut</p></div>
+    <div class="map-frame"><iframe title="Peta Google Maps Boemi AOM Garut" src="https://maps.google.com/maps?q=Boemi%20AOM%2C%20Jl.%20Ciledug%20No.%20268B%2C%20Garut&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+    <a class="btn map-open" href="https://www.google.com/maps/search/?api=1&amp;query=Boemi%20AOM%2C%20Jl.%20Ciledug%20No.%20268B%2C%20Garut" target="_blank" rel="noopener noreferrer">Buka Google Maps ↗</a>
   </div>
   <div class="calendar-link"><a href="#" class="btn" id="calendar-link">＋ Simpan ke Google Calendar</a><div class="calendar-note">Silakan simpan tanggal acara agar tidak terlupa.</div></div>
 </div></section>
@@ -389,7 +427,7 @@ const WEDDING = {
   gift:{bankName:"Informasi rekening",accountNumber:"Informasi menyusul",accountHolder:"Naufal & Yulianti",deliveryAddress:"Informasi pengiriman hadiah akan ditambahkan."},
   integrations:{appsScriptUrl:""}
 };
-const $=id=>document.getElementById(id);
+const $=id=>document.getElementById(id); if(location.hash && location.hash!=="#home"){const c=$("cover");if(c){c.classList.add("hidden");c.style.display="none";document.body.classList.remove("locked");}}
 const couple=`${WEDDING.groom.name} & ${WEDDING.bride.name}`;
 const eventDate=new Date(`${WEDDING.event.date}T00:00:00+07:00`);
 const dateLabel=eventDate.toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"Asia/Jakarta"});
@@ -417,7 +455,7 @@ const target=new Date(`${WEDDING.event.date}T${WEDDING.event.ceremonyTime}:00+07
 function updateCountdown(){const diff=target-Date.now();if(!Number.isFinite(target)){ $("countdown-message").textContent="Silakan isi tanggal acara pada konfigurasi.";return;}if(diff<=0){["days","hours","minutes","seconds"].forEach(id=>$(id).textContent="00");$("countdown-message").textContent="Hari bahagia telah tiba. Semoga penuh kebahagiaan!";return;}const vals=[Math.floor(diff/86400000),Math.floor(diff%86400000/3600000),Math.floor(diff%3600000/60000),Math.floor(diff%60000/1000)];["days","hours","minutes","seconds"].forEach((id,i)=>$(id).textContent=String(vals[i]).padStart(2,"0"));}
 updateCountdown();const countdownTimer=setInterval(updateCountdown,1000);
 const guest=new URLSearchParams(location.search).get("to");if(guest&&guest.trim())$("guest-name").textContent=guest.trim().slice(0,100);
-$("open-invitation").addEventListener("click",()=>{$("cover").classList.add("hidden");document.body.classList.remove("locked");$("home").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});});
+$("open-invitation").addEventListener("click",()=>{const cover=$("cover");cover.classList.add("hidden");document.body.classList.remove("locked");window.setTimeout(()=>{cover.style.display="none";cover.setAttribute("aria-hidden","true");},750);history.replaceState(null,"",location.pathname+location.search+"#home");window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});});
 $("menu-toggle").addEventListener("click",()=>{const open=$("nav-links").classList.toggle("open");$("menu-toggle").setAttribute("aria-expanded",String(open));});
 $("nav-links").querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{$("nav-links").classList.remove("open");$("menu-toggle").setAttribute("aria-expanded","false");}));
 const attendance=$("attendance"),countField=$("guest-count-field"),guestCount=$("guest-count");
