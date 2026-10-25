@@ -295,6 +295,41 @@ footer{background:#602a35;color:#f1d6cf}
 }
 @media(prefers-reduced-motion:reduce){.reveal,.section:before,.section:after,.hero:before,.hero:after,.cover:before{animation:none!important;transition:none!important}}
 
+
+/* IMPLEMENTASI ORNAMEN FLORAL MEWAH — blush, rose, champagne gold */
+:root{--floral-rose:#d98d91;--floral-blush:#f4d4d0;--floral-gold:#c49b62}
+.section,.hero,.closing,.countdown-section,.topbar,.cover{isolation:isolate;position:relative}
+.section:before,.section:after,.hero:before,.hero:after,.closing:after,.topbar:before,.topbar:after,.cover:before,.countdown-section:before,.countdown-section:after{
+  content:"";position:absolute;display:block;pointer-events:none;z-index:0;
+  background-image:url("assets/images/floral-corner.svg");background-repeat:no-repeat;background-size:100% 100%;
+  filter:drop-shadow(0 7px 10px rgba(125,55,63,.16));opacity:.98;animation:floralSway 12s ease-in-out infinite;
+}
+.section:before{width:clamp(210px,31vw,440px);height:clamp(250px,39vw,520px);left:-24px;top:-22px}
+.section:after{width:clamp(205px,30vw,420px);height:clamp(245px,38vw,500px);right:-22px;bottom:-20px;transform:scaleX(-1) rotate(5deg);animation-delay:-6s}
+.hero:before,.cover:before{width:clamp(245px,36vw,500px);height:clamp(290px,45vw,600px);left:-26px;top:-14px;opacity:1}
+.hero:after{width:clamp(235px,35vw,480px);height:clamp(280px,43vw,575px);right:-24px;bottom:-20px;transform:scaleX(-1) rotate(3deg);animation-delay:-5s}
+.topbar:before,.topbar:after{width:clamp(90px,13vw,175px);height:clamp(105px,16vw,210px);top:-12px}
+.topbar:before{left:-8px}.topbar:after{right:-8px;transform:scaleX(-1)}
+.closing:after{width:clamp(260px,39vw,520px);height:clamp(300px,46vw,620px);right:-24px;bottom:-24px;transform:scaleX(-1)}
+.countdown-section:before{width:clamp(210px,32vw,440px);height:clamp(255px,39vw,520px);left:-25px;top:-15px}
+.countdown-section:after{width:clamp(210px,32vw,440px);height:clamp(255px,39vw,520px);right:-25px;bottom:-18px;transform:scaleX(-1);animation-delay:-6s}
+.section .wrap,.section-head,.hero-inner,.hero-photo,.nav,.countdown-section>*{position:relative;z-index:1}
+/* Pita sutra halus di antara babak undangan, tanpa menutup teks */
+#couple,#event,#gallery,#doa,#rsvp,#wishes,#gift{background-image:url("assets/images/silk-ribbon.svg");background-position:center bottom;background-size:100% 92px;background-repeat:no-repeat}
+#gallery,#doa{background-blend-mode:screen}
+.section-head h2:after,.closing h2:after{content:"";display:block;width:92px;height:15px;margin:10px auto 0;background:linear-gradient(90deg,transparent,var(--floral-gold),var(--floral-rose),var(--floral-gold),transparent);clip-path:polygon(0 45%,38% 45%,46% 0,50% 45%,54% 0,62% 45%,100% 45%,100% 55%,62% 55%,54% 100%,50% 55%,46% 100%,38% 55%,0 55%);opacity:.75}
+.cover{transition:opacity .65s ease,visibility .65s ease}
+.cover.hidden{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+@media(max-width:720px){
+ .section:before{width:clamp(145px,40vw,235px);height:clamp(175px,48vw,290px);left:-17px;top:-10px}
+ .section:after{width:clamp(145px,40vw,235px);height:clamp(175px,48vw,290px);right:-17px;bottom:-12px}
+ .hero:before,.cover:before{width:clamp(175px,48vw,270px);height:clamp(215px,59vw,335px)}
+ .hero:after{width:clamp(165px,45vw,255px);height:clamp(205px,56vw,315px)}
+ .topbar:before,.topbar:after{width:78px;height:90px}
+ #couple,#event,#gallery,#doa,#rsvp,#wishes,#gift{background-size:auto 70px}
+}
+@media(prefers-reduced-motion:reduce){.section:before,.section:after,.hero:before,.hero:after,.cover:before,.topbar:before,.topbar:after,.countdown-section:before,.countdown-section:after{animation:none!important}}
+
 </style>
 </head>
 <body>
