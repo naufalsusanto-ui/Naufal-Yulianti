@@ -62,10 +62,6 @@
 <g transform="translate(260 275) scale(.42)"><use href="#smallflower"/></g>
 <g transform="translate(198 430) scale(.42)"><use href="#smallflower"/></g>
 <g transform="translate(365 235) scale(.40)"><use href="#smallflower"/></g>
-<g fill="#c49b62" opacity=".8">
- <circle cx="51" cy="155" r="2.2"/><circle cx="87" cy="223" r="2.5"/><circle cx="151" cy="244" r="2.1"/>
- <circle cx="230" cy="235" r="2.4"/><circle cx="290" cy="303" r="2.2"/><circle cx="341" cy="392" r="2.4"/>
- <circle cx="196" cy="395" r="2.1"/><circle cx="84" cy="363" r="2.3"/><circle cx="314" cy="174" r="2.1"/>
-</g>
+<g fill="#c49b62" opacity=".8"><circle cx="51" cy="155" r="2.2"/><circle cx="87" cy="223" r="2.5"/><circle cx="151" cy="244" r="2.1"/><circle cx="230" cy="235" r="2.4"/><circle cx="290" cy="303" r="2.2"/><circle cx="341" cy="392" r="2.4"/><circle cx="196" cy="395" r="2.1"/><circle cx="84" cy="363" r="2.3"/><circle cx="314" cy="174" r="2.1"/></g>
 
 </svg>
