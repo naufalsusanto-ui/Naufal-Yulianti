@@ -329,6 +329,32 @@ footer{background:#602a35;color:#f1d6cf}
 }
 @media(prefers-reduced-motion:reduce){.section:before,.section:after,.hero:before,.hero:after,.cover:before,.topbar:before,.topbar:after,.countdown-section:before,.countdown-section:after{animation:none!important}}
 
+
+/* REVISI FLORAL FINAL: ornamen lebih seimbang, mewah, dan tidak menutupi isi */
+.section:before{width:clamp(150px,22vw,300px)!important;height:clamp(180px,27vw,350px)!important;left:-32px!important;top:-18px!important;opacity:.78!important}
+.section:after{width:clamp(145px,21vw,285px)!important;height:clamp(175px,26vw,335px)!important;right:-30px!important;bottom:-18px!important;opacity:.72!important}
+.hero:before,.cover:before{width:clamp(180px,27vw,360px)!important;height:clamp(220px,33vw,430px)!important;left:-24px!important;top:-10px!important;opacity:.9!important}
+.hero:after{width:clamp(175px,26vw,345px)!important;height:clamp(215px,32vw,420px)!important;right:-28px!important;bottom:-15px!important;opacity:.82!important}
+.countdown-section:before,.countdown-section:after{width:clamp(155px,23vw,310px)!important;height:clamp(190px,28vw,370px)!important;opacity:.62!important}
+/* Footer penutup: bunga ditempatkan di kedua sudut, bagian tengah tetap lapang */
+.closing{background-color:#75434d!important;background-image:linear-gradient(135deg,rgba(135,82,94,.94),rgba(112,55,68,.97)),url("assets/images/floral-corner.svg"),url("assets/images/floral-corner.svg")!important;background-repeat:no-repeat!important;background-size:auto,clamp(190px,27vw,350px) clamp(220px,31vw,390px),clamp(190px,27vw,350px) clamp(220px,31vw,390px)!important;background-position:center,left -24px bottom -24px,right -24px top -24px!important}
+.closing:after{width:clamp(190px,27vw,350px)!important;height:clamp(220px,31vw,390px)!important;right:-24px!important;bottom:-24px!important;opacity:.28!important;filter:none!important}
+.closing:before{z-index:1!important}
+.closing>*{position:relative;z-index:2}
+.closing .ornament{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid rgba(240,214,216,.7);border-radius:50%;margin:24px 0 12px;font-size:1.35rem;animation:roseGlow 4s ease-in-out infinite}
+/* Pita sutra dan ornamen kelopak tetap halus sebagai aksen, bukan lapisan yang mengganggu */
+#couple,#event,#gallery,#doa,#rsvp,#wishes,#gift{background-size:100% 64px!important;background-position:center bottom!important}
+.petal-layer span{opacity:.28!important}
+@media(max-width:720px){
+ .section:before{width:clamp(115px,34vw,190px)!important;height:clamp(140px,40vw,230px)!important;left:-18px!important;top:-8px!important;opacity:.68!important}
+ .section:after{width:clamp(110px,33vw,185px)!important;height:clamp(135px,39vw,225px)!important;right:-18px!important;bottom:-10px!important;opacity:.62!important}
+ .hero:before,.cover:before{width:clamp(130px,39vw,215px)!important;height:clamp(160px,48vw,265px)!important}
+ .hero:after{width:clamp(125px,37vw,205px)!important;height:clamp(155px,46vw,255px)!important}
+ .closing{background-size:auto,170px 200px,170px 200px!important;background-position:center,left -35px bottom -18px,right -35px top -18px!important}
+ .closing:after{width:170px!important;height:200px!important;right:-35px!important;bottom:-18px!important}
+}
+@media(prefers-reduced-motion:reduce){.closing .ornament{animation:none!important}}
+
 </style>
 </head>
 <body>
