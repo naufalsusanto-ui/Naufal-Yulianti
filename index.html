@@ -355,6 +355,49 @@ footer{background:#602a35;color:#f1d6cf}
 }
 @media(prefers-reduced-motion:reduce){.closing .ornament{animation:none!important}}
 
+
+
+/* FLORAL ASSET COLLECTION v2 — variasi ornamen berbeda per bagian, tidak menutup teks */
+:root{--floral-gold:#c49b62;--floral-rose:#d98d91}
+/* Pastikan konten selalu berada di atas ornamen dekoratif. */
+.section,.hero,.countdown-section,.closing,.topbar,.cover{position:relative;isolation:isolate}
+.section .wrap,.hero-inner,.hero-photo,.nav,.countdown-section>* ,.cover-inner,.closing>*{position:relative;z-index:2}
+.section:before,.section:after,.hero:before,.hero:after,.topbar:before,.topbar:after,.countdown-section:before,.countdown-section:after,.cover:before,.closing:after{pointer-events:none!important;z-index:0!important;background-repeat:no-repeat!important;background-size:contain!important;filter:drop-shadow(0 5px 8px rgba(119,58,64,.12));}
+/* Hero: buket besar di sisi kiri, ranting ringan di kanan. */
+.hero:before{background-image:url('assets/svg/floral/peony-bouquet.svg')!important;width:clamp(170px,24vw,340px)!important;height:clamp(230px,35vw,460px)!important;left:-22px!important;top:4px!important;opacity:.9!important;animation:floralSway 13s ease-in-out infinite!important}
+.hero:after{background-image:url('assets/svg/floral/eucalyptus-branch.svg')!important;width:clamp(160px,24vw,330px)!important;height:clamp(95px,15vw,190px)!important;right:-8px!important;bottom:8px!important;transform:rotate(-12deg)!important;opacity:.82!important;animation:softFloat 12s ease-in-out infinite!important}
+/* Tiap bagian menggunakan aset berbeda agar tidak terlihat seperti salinan sudut yang sama. */
+#couple:before{background-image:url('assets/svg/decorations/arch-frame.svg')!important;width:clamp(115px,18vw,230px)!important;height:clamp(160px,25vw,320px)!important;left:-18px!important;top:18px!important;opacity:.36!important}
+#couple:after{background-image:url('assets/svg/floral/cherry-blossom.svg')!important;width:clamp(140px,20vw,260px)!important;height:clamp(150px,22vw,290px)!important;right:-10px!important;bottom:0!important;opacity:.78!important;transform:scaleX(-1) rotate(4deg)!important}
+#event:before{background-image:url('assets/svg/floral/eucalyptus-branch.svg')!important;width:clamp(150px,22vw,290px)!important;height:clamp(80px,13vw,170px)!important;left:-12px!important;top:16px!important;opacity:.74!important;transform:rotate(22deg)!important}
+#event:after{background-image:url('assets/svg/floral/mini-sprig.svg')!important;width:clamp(100px,15vw,195px)!important;height:clamp(140px,21vw,260px)!important;right:-8px!important;bottom:0!important;opacity:.7!important}
+#gallery:before{background-image:url('assets/svg/floral/rose-corner-left.svg')!important;width:clamp(145px,22vw,285px)!important;height:clamp(180px,28vw,360px)!important;left:-24px!important;top:-6px!important;opacity:.76!important}
+#gallery:after{background-image:url('assets/svg/floral/peony-bouquet.svg')!important;width:clamp(140px,21vw,270px)!important;height:clamp(180px,27vw,340px)!important;right:-18px!important;bottom:-8px!important;transform:scaleX(-1)!important;opacity:.78!important}
+#doa:before{background-image:url('assets/svg/floral/cherry-blossom.svg')!important;width:clamp(120px,18vw,230px)!important;height:clamp(130px,20vw,260px)!important;left:-10px!important;top:5px!important;opacity:.54!important}
+#doa:after{background-image:url('assets/svg/ornaments/filigree.svg')!important;width:clamp(140px,20vw,250px)!important;height:clamp(85px,13vw,160px)!important;right:-5px!important;bottom:8px!important;opacity:.72!important}
+#rsvp:before{background-image:url('assets/svg/floral/mini-sprig.svg')!important;width:clamp(100px,16vw,205px)!important;height:clamp(135px,21vw,270px)!important;left:-14px!important;top:8px!important;opacity:.62!important}
+#rsvp:after{background-image:url('assets/svg/floral/rose-corner-left.svg')!important;width:clamp(125px,19vw,245px)!important;height:clamp(155px,24vw,310px)!important;right:-16px!important;bottom:-8px!important;transform:scaleX(-1)!important;opacity:.58!important}
+#gift:before{background-image:url('assets/svg/floral/peony-bouquet.svg')!important;width:clamp(120px,18vw,225px)!important;height:clamp(160px,24vw,300px)!important;left:-18px!important;top:0!important;opacity:.64!important}
+#gift:after{background-image:url('assets/svg/ornaments/filigree.svg')!important;width:clamp(150px,22vw,270px)!important;height:clamp(90px,13vw,165px)!important;right:-8px!important;bottom:8px!important;opacity:.65!important}
+.countdown-section:before{background-image:url('assets/svg/floral/rose-corner-left.svg')!important;width:clamp(145px,21vw,280px)!important;height:clamp(175px,27vw,350px)!important;left:-18px!important;top:-10px!important;opacity:.6!important}
+.countdown-section:after{background-image:url('assets/svg/floral/eucalyptus-branch.svg')!important;width:clamp(150px,22vw,290px)!important;height:clamp(85px,13vw,170px)!important;right:-12px!important;bottom:10px!important;transform:scaleX(-1) rotate(-15deg)!important;opacity:.6!important}
+.topbar:before,.topbar:after{background-image:url('assets/svg/floral/mini-sprig.svg')!important;width:clamp(45px,7vw,88px)!important;height:clamp(55px,8vw,100px)!important;opacity:.8!important}
+.topbar:after{transform:scaleX(-1)!important}
+/* Pita sutra sebagai aksen tipis, bukan bidang penuh yang mengganggu. */
+#couple,#event,#gallery,#doa,#rsvp,#wishes,#gift{background-image:url('assets/svg/decorations/silk-ribbon.svg')!important;background-position:center bottom!important;background-size:100% 50px!important;background-repeat:no-repeat!important}
+.section-head h2:after,.closing h2:after{content:"";display:block;width:min(150px,35vw);height:16px;margin:10px auto 0;background:url('assets/svg/ornaments/gold-divider.svg') center/contain no-repeat!important;clip-path:none!important;opacity:.9}
+.closing{background-image:linear-gradient(135deg,rgba(135,82,94,.95),rgba(112,55,68,.97)),url('assets/svg/floral/rose-corner-left.svg'),url('assets/svg/floral/peony-bouquet.svg')!important;background-repeat:no-repeat!important;background-size:auto,clamp(150px,22vw,280px) clamp(180px,27vw,340px),clamp(140px,20vw,260px) clamp(170px,26vw,320px)!important;background-position:center,left -18px bottom -8px,right -15px top -5px!important}
+.closing:after{background-image:url('assets/svg/floral/cherry-blossom.svg')!important;width:clamp(120px,18vw,225px)!important;height:clamp(130px,20vw,255px)!important;opacity:.25!important}
+@media(max-width:720px){
+ .hero:before{width:clamp(115px,34vw,190px)!important;height:clamp(160px,46vw,250px)!important;left:-18px!important;opacity:.75!important}
+ .hero:after{width:clamp(105px,31vw,175px)!important;height:clamp(70px,20vw,115px)!important;right:-12px!important;opacity:.65!important}
+ #couple:before,#event:before,#gallery:before,#doa:before,#rsvp:before,#gift:before{width:clamp(90px,27vw,150px)!important;height:clamp(115px,34vw,190px)!important;left:-20px!important;opacity:.45!important}
+ #couple:after,#event:after,#gallery:after,#doa:after,#rsvp:after,#gift:after{width:clamp(90px,26vw,145px)!important;height:clamp(115px,33vw,185px)!important;right:-18px!important;opacity:.45!important}
+ .topbar:before,.topbar:after{width:44px!important;height:54px!important}
+ #couple,#event,#gallery,#doa,#rsvp,#wishes,#gift{background-size:100% 32px!important}
+}
+@media(prefers-reduced-motion:reduce){.hero:before,.hero:after,.section:before,.section:after,.topbar:before,.topbar:after,.countdown-section:before,.countdown-section:after{animation:none!important}}
+
 </style>
 </head>
 <body>
