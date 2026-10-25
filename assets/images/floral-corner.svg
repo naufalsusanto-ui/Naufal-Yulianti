@@ -48,4 +48,24 @@
 <!-- tiny gold buds and blush petals -->
 <g fill="url(#gold)"><circle cx="39" cy="112" r="3"/><circle cx="116" cy="198" r="2.8"/><circle cx="229" cy="292" r="3"/><circle cx="280" cy="393" r="2.5"/><circle cx="364" cy="301" r="2.5"/><circle cx="143" cy="418" r="2.4"/></g>
 <g fill="#e9b5b5" opacity=".88"><path d="M38 237Q58 220 61 244Q48 257 38 237Z"/><path d="M248 94Q268 76 270 99Q256 112 248 94Z"/><path d="M368 176Q387 162 387 184Q375 195 368 176Z"/><path d="M86 400Q103 385 106 407Q94 418 86 400Z"/></g>
+
+<!-- tambahan bunga peony, rosebuds, dan detail emas agar komposisi lebih megah -->
+<g transform="translate(48 38) rotate(-14) scale(.88)"><use href="#rose"/></g>
+<g transform="translate(113 119) rotate(12) scale(.55)"><use href="#rose"/></g>
+<g transform="translate(60 330) rotate(-8) scale(.72)"><use href="#rose"/></g>
+<g transform="translate(168 286) rotate(16) scale(.60)"><use href="#rose"/></g>
+<g transform="translate(245 144) rotate(-10) scale(.65)"><use href="#rose"/></g>
+<g transform="translate(286 338) rotate(12) scale(.83)"><use href="#rose"/></g>
+<g transform="translate(358 465) rotate(-8) scale(.65)"><use href="#rose"/></g>
+<g transform="translate(22 125) scale(.42)"><use href="#smallflower"/></g>
+<g transform="translate(120 220) scale(.38)"><use href="#smallflower"/></g>
+<g transform="translate(260 275) scale(.42)"><use href="#smallflower"/></g>
+<g transform="translate(198 430) scale(.42)"><use href="#smallflower"/></g>
+<g transform="translate(365 235) scale(.40)"><use href="#smallflower"/></g>
+<g fill="#c49b62" opacity=".8">
+ <circle cx="51" cy="155" r="2.2"/><circle cx="87" cy="223" r="2.5"/><circle cx="151" cy="244" r="2.1"/>
+ <circle cx="230" cy="235" r="2.4"/><circle cx="290" cy="303" r="2.2"/><circle cx="341" cy="392" r="2.4"/>
+ <circle cx="196" cy="395" r="2.1"/><circle cx="84" cy="363" r="2.3"/><circle cx="314" cy="174" r="2.1"/>
+</g>
+
 </svg>
