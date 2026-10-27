@@ -496,6 +496,84 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
 @media(max-width:600px){#story .collage{--gap:16px;grid-template-columns:repeat(2,minmax(0,1fr));row-gap:44px;padding:26px 14px 30px}
  #story .cl-slot:nth-of-type(n)::after{left:calc(var(--gap)/-2);right:calc(var(--gap)/-2)}#story .cl-slot:nth-of-type(odd)::after{left:-14px}#story .cl-slot:nth-of-type(even)::after{right:-14px}}
 @media(prefers-reduced-motion:reduce){#story .cl,#story .cl-charm{animation:none!important}}
+
+/* ===== HEADER NAVIGASI: elegan, bergaris emas, menu mobile bergaya ===== */
+.topbar{background:linear-gradient(180deg,rgba(255,252,249,.97),rgba(253,244,240,.93));border-bottom:0;transition:box-shadow .35s,background .35s}
+.topbar::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,#d9b17e 16%,#ecd3a6 46%,transparent 46.8%,transparent 53.2%,#ecd3a6 54%,#d9b17e 84%,transparent)}
+.topbar::before{content:"♥";position:absolute;left:50%;bottom:-6px;font-size:11px;line-height:1;color:#c98589;z-index:2;pointer-events:none;animation:clBeat 2.8s ease-in-out infinite}
+.topbar.scrolled{background:rgba(255,250,247,.97);box-shadow:0 12px 30px rgba(112,61,65,.09)}
+.brand{gap:12px}
+.brand-mark{min-width:44px;height:44px;border:1px solid #d9b17e;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fffdfa,#f7e6df);box-shadow:0 0 0 3px rgba(217,177,126,.16),0 4px 10px rgba(112,61,65,.08);font-size:17px;color:var(--wine)}
+.brand-text{display:flex;flex-direction:column;gap:5px}.brand-text b{font:italic 500 26px/1 var(--serif);color:var(--wine)}.brand-text .amp{font-size:.8em;color:#c98589;margin:0 1px}
+.brand-text small{font:600 10.5px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:#a98a62}
+.nav-links{gap:clamp(14px,1.9vw,30px)}
+.nav-links a:not(.nav-cta){position:relative;font:600 11.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#7b5f62;padding:8px 0}
+.nav-links a:not(.nav-cta)::after{content:"";position:absolute;left:50%;bottom:-3px;width:0;height:1px;background:linear-gradient(90deg,transparent,#c9a15f,transparent);transition:width .35s,left .35s}
+.nav-links a:not(.nav-cta):hover::after,.nav-links a.active::after{width:130%;left:-15%}
+.nav-links a.active{color:var(--wine);font-weight:700}
+.nav-links a.nav-cta{position:relative;overflow:hidden;font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:13px 24px;outline:1px solid rgba(217,177,126,.8);outline-offset:3px}
+.nav-links a.nav-cta::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);animation:opShine 3.6s 1.5s infinite}
+.menu-toggle{display:none}
+@media(max-width:1180px){
+ .nav-links a.nav-cta::after{display:none}
+ .menu-toggle{display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:4.5px;width:44px;height:44px;padding:0;border:1px solid #d9b17e;background:radial-gradient(circle at 35% 30%,#fffdfa,#f7e6df);border-radius:50%;box-shadow:0 0 0 3px rgba(217,177,126,.14);cursor:pointer;flex:0 0 auto}
+ .menu-toggle span{display:block;width:18px;height:1.8px;border-radius:2px;background:var(--wine);transition:transform .35s,opacity .25s}
+ .menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6.3px) rotate(45deg)}.menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}.menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.3px) rotate(-45deg)}
+ .nav-links{display:none;position:fixed;top:var(--header);left:0;right:0;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;padding:12px 26px 26px;background:linear-gradient(180deg,rgba(255,252,249,.99),rgba(251,238,233,.99));border-bottom:1px solid #e3c7a0;box-shadow:0 24px 40px rgba(93,48,48,.14);max-height:calc(100svh - var(--header));overflow:auto}
+ .nav-links.open{display:flex;animation:navDrop .4s cubic-bezier(.2,.8,.2,1)}
+ .nav-links a:not(.nav-cta){font:italic 400 23px/1.2 var(--serif);letter-spacing:0;text-transform:none;text-align:center;color:#6d4448;padding:14px 4px;border-bottom:0;background:linear-gradient(90deg,transparent,rgba(217,177,126,.6),transparent) bottom/100% 1px no-repeat}
+ .nav-links a:not(.nav-cta)::after{display:none}
+ .nav-links a.active{color:var(--wine);font-weight:600}
+ .nav-links.open a{animation:navItem .5s cubic-bezier(.2,.8,.2,1) both}
+ .nav-links.open a:nth-child(2){animation-delay:.05s}.nav-links.open a:nth-child(3){animation-delay:.1s}.nav-links.open a:nth-child(4){animation-delay:.15s}.nav-links.open a:nth-child(5){animation-delay:.2s}.nav-links.open a:nth-child(6){animation-delay:.25s}.nav-links.open a:nth-child(7){animation-delay:.3s}.nav-links.open a:nth-child(8){animation-delay:.38s}
+ .nav-links a.nav-cta{margin-top:18px;width:100%;min-height:50px;font-size:13px;overflow:visible}
+}
+@media(max-width:380px){.brand-text small{display:none}.brand-text b{font-size:22px}.brand-mark{min-width:38px;height:38px}}
+@keyframes navDrop{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+@keyframes navItem{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* ===== HADIAH: rekening BCA + alamat ===== */
+.gift-info{grid-template-columns:1fr!important;gap:14px!important}
+.gift-method{padding:18px 18px 20px}
+.bank-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.bank-card{display:flex;flex-direction:column;gap:6px;padding:14px 16px 16px;border:1px solid #e3c7a0;border-radius:12px;background:linear-gradient(135deg,#fffdf9,#fbefe9);box-shadow:0 8px 20px rgba(112,61,65,.08)}
+.bank-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.bank-logo{height:26px;width:auto;display:block}
+.gift-method .bank-an{font:600 15px/1.4 var(--sans);color:#6d4448}
+.gift-method .bank-no{font:700 22px/1.2 var(--sans);letter-spacing:.07em;color:var(--wine);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.copy-btn{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:6px 14px;border:1px solid #d9b17e;border-radius:999px;background:#fff8f0;color:#8a5a3b;font:600 12.5px/1 var(--sans);letter-spacing:.03em;text-decoration:none;cursor:pointer;transition:background .25s,color .25s,transform .25s}
+.copy-btn:hover{background:#f6e2c8;transform:translateY(-1px)}.copy-btn.done{background:#e6f2e4;border-color:#9cc59a;color:#3d6b3b}
+.gift-address{font:normal 16px/1.75 var(--sans);color:#6d4448;margin:6px 0 14px}
+.addr-actions{display:flex;flex-wrap:wrap;gap:8px}
+@media(max-width:600px){.bank-list{grid-template-columns:1fr}.gift-method .bank-no{font-size:21px}}
+@media(prefers-reduced-motion:reduce){.topbar::before,.nav-links a.nav-cta::after{animation:none!important}}
+
+/* ===== REVISI: ikon hadiah & header ===== */
+.gift-method{position:relative;overflow:hidden;background:linear-gradient(160deg,#fffdfa,#fdf1ec);border-color:#e3c7a0;box-shadow:0 14px 34px rgba(112,61,65,.08)}
+.gift-method::before{content:"";position:absolute;inset:7px;border:1px solid rgba(217,177,126,.35);border-radius:6px;pointer-events:none}
+.gift-method::after{content:"✦";position:absolute;right:18px;top:14px;font-size:13px;color:#d9b17e;opacity:.8;pointer-events:none}
+.gift-method>*{position:relative}
+.gift-method .method-icon{width:68px;height:68px;margin:2px 0 6px;filter:drop-shadow(0 6px 10px rgba(185,150,100,.28))}
+.gift-method .method-icon img{width:100%;height:100%;display:block;animation:iconFloat 5s ease-in-out infinite}
+.gift-method h3{font-size:28px;letter-spacing:.01em}
+.gift-method h3+p{display:flex;align-items:center;gap:10px;font:600 11.5px/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#a98a62}
+.gift-method h3+p::after{content:"";height:1px;width:56px;background:linear-gradient(90deg,#d9b17e,transparent)}
+@keyframes iconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+@media(min-width:901px){:root{--header:84px}}
+.brand{gap:14px}
+.brand-mark{position:relative;min-width:50px;height:50px;border:1px solid #d9b17e;box-shadow:0 0 0 4px rgba(217,177,126,.13),0 0 0 5px rgba(217,177,126,.35),0 6px 14px rgba(112,61,65,.12);background:radial-gradient(circle at 32% 28%,#fffefb,#f6e0d8 85%)}
+.brand-ring{position:absolute;inset:-6px;width:calc(100% + 12px);height:calc(100% + 12px);animation:brandSpin 40s linear infinite;pointer-events:none}
+.brand-mark b{font:italic 500 19px/1 var(--serif);letter-spacing:-.04em;color:var(--wine)}.brand-mark b i{color:#c98589;font-size:.8em;margin:0 1px}
+.brand-text{gap:4px}
+.brand-kicker{font:500 italic 11.5px/1 var(--serif);letter-spacing:.22em;text-transform:uppercase;color:#b48f9a;font-style:normal}
+.brand-text b{font:italic 500 29px/1 var(--serif);background:linear-gradient(100deg,#6b2c3b 0%,#8c4150 55%,#b86f7b 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.brand-text .amp{font-size:.82em;-webkit-text-fill-color:#c98589;color:#c98589;margin:0 3px}
+.brand-date{display:flex;align-items:center;gap:9px;font:600 10.5px/1 var(--sans);letter-spacing:.34em;color:#a98a62}
+.brand-date s{display:block;flex:1;height:1px;text-decoration:none;background:linear-gradient(90deg,transparent,#d9b17e)}.brand-date s:last-child{background:linear-gradient(90deg,#d9b17e,transparent)}
+@keyframes brandSpin{to{transform:rotate(360deg)}}
+@media(max-width:600px){.brand-kicker{display:none}.brand-text b{font-size:25px}.brand-date{font-size:9.5px;letter-spacing:.28em}.brand-mark{min-width:42px;height:42px}.brand-mark b{font-size:16px}.gift-method .method-icon{width:58px;height:58px}.gift-method h3{font-size:25px}}
+@media(max-width:380px){.brand-date{display:none}.brand-text b{font-size:22px}.brand-mark{min-width:38px;height:38px}.brand-ring{display:none}}
+@media(prefers-reduced-motion:reduce){.brand-ring,.gift-method .method-icon img{animation:none!important}}
 </style>
 </head>
 <body>
@@ -505,10 +583,10 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
 <div class="global-petals" id="global-petals" aria-hidden="true"></div>
 <div class="page">
 <header class="topbar"><nav class="nav" aria-label="Navigasi utama">
-  <a class="brand" href="#home" aria-label="Naufal dan Yulianti"><span class="brand-mark">N<span style="color:#c98589">&amp;</span>Y</span><span>Naufal <small style="font-size:.78em">&amp;</small> Yulianti</span></a>
-  <button class="menu-toggle" id="menu-toggle" aria-label="Buka menu" aria-expanded="false">☰</button>
+  <a class="brand" href="#home" aria-label="Naufal dan Yulianti"><span class="brand-mark"><svg class="brand-ring" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="27.5" fill="none" stroke="#d9b17e" stroke-width=".8" stroke-dasharray="1 3" stroke-linecap="round"/><path d="M30 1.5 l1.6 2.2 -1.6 2.2 -1.6 -2.2z" fill="#c9a15f"/></svg><b>N<i>&amp;</i>Y</b></span><span class="brand-text"><em class="brand-kicker">The Wedding of</em><b>Naufal <i class="amp">&amp;</i> Yulianti</b><span class="brand-date"><s></s>27 · 12 · 2026<s></s></span></span></a>
+  <button class="menu-toggle" id="menu-toggle" aria-label="Buka menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links" id="nav-links">
-    <a href="#home">Beranda</a><a href="#couple">Mempelai</a><a href="#event">Acara</a><a href="#story">Cerita</a><a href="#gallery">Galeri</a><a href="#doa">Doa</a><a href="#gift">Hadiah</a><a class="nav-cta" href="#rsvp">Konfirmasi Hadir ↓</a>
+    <a href="#home">Beranda</a><a href="#couple">Mempelai</a><a href="#event">Acara</a><a href="#story">Cerita</a><a href="#gallery">Galeri</a><a href="#doa">Doa</a><a href="#gift">Hadiah</a><a class="nav-cta" href="#rsvp">Konfirmasi Hadir</a>
   </div>
 </nav></header>
 
@@ -661,8 +739,9 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
   <img class="orn corner tl" src="assets/images/orn-lush-corner.svg" alt="" aria-hidden="true"><img class="orn corner br" src="assets/images/orn-lush-corner.svg" alt="" aria-hidden="true"><img class="orn lantern" src="assets/images/orn-lantern.svg" alt="" aria-hidden="true" style="top:45px;left:clamp(38px,11vw,145px)">
   <div class="wrap gift-layout">
     <div class="gift-art reveal"><div class="ga-main"><img src="assets/images/story-bottom1.jpg" alt="Foto prewedding Naufal dan Yulianti" loading="lazy"></div><img class="ga-small" src="assets/images/mini-1.jpg" alt="" aria-hidden="true" loading="lazy"><span class="ga-badge" aria-hidden="true">♡</span><span class="ga-spark" aria-hidden="true">✦</span></div>
-    <div class="gift-copy reveal reveal-delay-1"><div class="eyebrow">Tanda kasih</div><h2 id="gift-title">Hadiah Pernikahan</h2><div class="ornamental-rule" style="justify-content:flex-start"><span class="heart">♥</span></div><p>Kehadiran dan doa restu Anda adalah hadiah terindah bagi kami. Jika berkenan memberikan tanda kasih, informasi dapat ditambahkan pada bagian ini.</p>
-      <div class="gift-info"><article class="gift-method"><div class="method-icon">▤</div><h3>Transfer Bank</h3><p>Informasi rekening</p><p class="placeholder">Akan ditambahkan setelah data tersedia.</p></article><article class="gift-method"><div class="method-icon">♡</div><h3>Kirim Hadiah</h3><p>Alamat pengiriman</p><p class="placeholder">Silakan hubungi keluarga untuk informasi lebih lanjut.</p></article></div>
+    <div class="gift-copy reveal reveal-delay-1"><div class="eyebrow">Tanda kasih</div><h2 id="gift-title">Hadiah Pernikahan</h2><div class="ornamental-rule" style="justify-content:flex-start"><span class="heart">♥</span></div><p>Kehadiran dan doa restu Anda adalah hadiah terindah bagi kami. Jika berkenan memberikan tanda kasih, Anda dapat mengirimkannya melalui transfer bank atau alamat berikut.</p>
+      <div class="gift-info"><article class="gift-method gift-bank"><div class="method-icon"><img src="assets/images/icon-bank.svg" alt="" aria-hidden="true" width="64" height="64"></div><h3>Transfer Bank</h3><p>Rekening BCA</p><div class="bank-list"><div class="bank-card"><div class="bank-top"><img class="bank-logo" src="assets/images/bca-logo.svg" alt="Logo BCA" width="72" height="26"><button class="copy-btn" type="button" data-copy="8100903831" data-label="nomor rekening" aria-label="Salin nomor rekening BCA Naufal Zain Susanto">Salin</button></div><span class="bank-an">a.n. Naufal Zain Susanto</span><b class="bank-no">8100903831</b></div><div class="bank-card"><div class="bank-top"><img class="bank-logo" src="assets/images/bca-logo.svg" alt="Logo BCA" width="72" height="26"><button class="copy-btn" type="button" data-copy="1481950401" data-label="nomor rekening" aria-label="Salin nomor rekening BCA Yulianti Efendi">Salin</button></div><span class="bank-an">a.n. Yulianti Efendi</span><b class="bank-no">1481950401</b></div></div></article><article class="gift-method gift-send"><div class="method-icon"><img src="assets/images/icon-gift.svg" alt="" aria-hidden="true" width="64" height="64"></div><h3>Kirim Hadiah</h3><p>Alamat pengiriman</p><address class="gift-address">Jl Candramerta I, RT.01/RW.06, Kota Wetan, Garut Kota, Kab. Garut, Jawa Barat, ID 44111</address><div class="addr-actions"><button class="copy-btn" type="button" data-copy="Jl Candramerta I, RT.01/RW.06, Kota Wetan, Garut Kota, Kab. Garut, Jawa Barat, ID 44111" data-label="alamat" aria-label="Salin alamat pengiriman hadiah">Salin alamat</button><a class="copy-btn" href="https://www.google.com/maps/search/?api=1&amp;query=Jl+Candramerta+I+Kota+Wetan+Garut" target="_blank" rel="noopener noreferrer">Buka di Maps</a></div></article></div>
+      
       <a class="btn outline" href="https://www.google.com/maps/search/?api=1&query=Boemi+AOM+Garut" target="_blank" rel="noopener noreferrer">⌖ Lihat Lokasi Acara</a>
     </div>
   </div>
@@ -718,8 +797,8 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
 
   // Mobile navigation.
   const menu=$('menu-toggle'),links=$('nav-links');
-  menu.addEventListener('click',()=>{const open=links.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Tutup menu':'Buka menu');menu.textContent=open?'×':'☰';document.body.classList.toggle('menu-open',open)});
-  links.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{links.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Buka menu');menu.textContent='☰';document.body.classList.remove('menu-open')}));
+  menu.addEventListener('click',()=>{const open=links.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Tutup menu':'Buka menu');document.body.classList.toggle('menu-open',open)});
+  links.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{links.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Buka menu');document.body.classList.remove('menu-open')}));
 
   // Reveal animations, disabled automatically when the visitor prefers reduced motion.
   const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -729,6 +808,9 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
   document.querySelectorAll('.filter-btn').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b===button));const filter=button.dataset.filter;document.querySelectorAll('.gallery-item').forEach(item=>{item.hidden=filter!=='all'&&item.dataset.category!==filter})}));
   const lightbox=$('lightbox'),lightboxImg=$('lightbox-img');
   document.querySelectorAll('#story .cl').forEach(item=>{item.addEventListener('click',()=>openPhoto(item));item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPhoto(item)}})});
+  const topbar=document.querySelector('.topbar');const onTop=()=>topbar&&topbar.classList.toggle('scrolled',scrollY>24);addEventListener('scroll',onTop,{passive:true});onTop();
+  document.querySelectorAll('.copy-btn[data-copy]').forEach(btn=>btn.addEventListener('click',async()=>{const t=btn.dataset.copy;let ok=false;try{await navigator.clipboard.writeText(t);ok=true}catch(_e){const ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{ok=document.execCommand('copy')}catch(_e2){}ta.remove()}
+    const old=btn.textContent;btn.textContent=ok?'Tersalin ✓':'Salin manual';btn.classList.toggle('done',ok);setTimeout(()=>{btn.textContent=old;btn.classList.remove('done')},1800);showToast(ok?(btn.dataset.label==='alamat'?'Alamat berhasil disalin.':'Nomor rekening berhasil disalin.'):'Gagal menyalin, silakan salin secara manual.')}));
   function openPhoto(item){const img=item.querySelector('img');if(!img)return;lightboxImg.src=img.currentSrc||img.src;lightboxImg.alt=img.alt;lightbox.classList.add('open');document.body.style.overflow='hidden';$('lightbox-close').focus()}
   function closePhoto(){lightbox.classList.remove('open');lightboxImg.src='';document.body.style.overflow=''}
   document.querySelectorAll('.gallery-item').forEach(item=>{item.addEventListener('click',()=>openPhoto(item));item.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openPhoto(item)}})});

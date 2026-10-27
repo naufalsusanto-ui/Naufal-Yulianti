@@ -41,3 +41,9 @@ Website undangan statis berbahasa Indonesia dengan tema romantic blush / Dusty P
 - Animasi: foto "jatuh" tergantung saat bagian terlihat, lalu bergoyang pelan; charm hati berdenyut di tengah tali. Animasi mati otomatis untuk pengunjung dengan reduced motion.
 - Foto bisa diketuk/diklik untuk membuka pratinjau besar (lightbox yang sama dengan galeri), juga lewat keyboard (Enter/Spasi).
 - Aturan CSS kolase lama yang saling bertabrakan (47 baris) dihapus; kini hanya ada satu blok aturan kolase.
+
+## Revisi tahap 7
+- Header navigasi: monogram N&Y berbingkai emas, nama + tanggal, tautan huruf kapital dengan garis emas pada menu aktif, tombol "Konfirmasi Hadir" ber-ring emas berkilau, garis emas dengan hati di bawah header, bayangan halus saat halaman digulir. Di bawah 1180px menu berubah menjadi tombol hamburger yang berubah jadi X dan panel menu serif italic.
+- Hadiah: rekening BCA (logo `assets/images/bca-logo.svg`) dengan tombol Salin, dan alamat pengiriman beserta tombol Salin alamat dan Buka di Maps.
+- Logo BCA di `assets/images/bca-logo.svg` adalah versi sederhana; ganti dengan logo resmi bernama sama (boleh .svg) bila ada.
+- Musik: letakkan file MP3 di assets/audio/wedding-music.mp3 (file ini tidak ada di arsip V2.rar).

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 44" role="img" aria-label="BCA">
+<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0a4d9c"/><stop offset="1" stop-color="#0079c1"/></linearGradient></defs>
+<text x="60" y="31" text-anchor="middle" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="32" letter-spacing="1" fill="url(#g)">BCA</text>
+<path d="M10 38 Q60 46 110 38" fill="none" stroke="#5ab4e5" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
