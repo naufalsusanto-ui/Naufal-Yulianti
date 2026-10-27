@@ -783,8 +783,51 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
   }
   function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),3200)}
 
-  // Personalised guest greeting: add ?to=Nama%20Tamu to the invitation URL.
-  try{const guest=new URLSearchParams(window.location.search).get('to');if(guest&&guest.trim())$('guest-name').textContent=guest.trim().slice(0,100)}catch(_e){}
+  // Undangan personal: nama dan batas tamu hanya diambil dari token yang divalidasi Apps Script.
+  const RSVP_ENDPOINT='https://script.google.com/macros/s/AKfycbyF87936cHUqyaGjVBq4dyLhArPVPbVWLfXMFwu2FIbMenTt_fpZxrTPJ8rF6ToU9iraA/exec';
+  const invitationParams=new URLSearchParams(window.location.search);
+  const invitationToken=(invitationParams.get('token')||'').trim();
+  let invitationGuest=null;
+  const guestNameNode=$('guest-name');
+  const openingGuestNode=$('opening-guest');
+  const fullNameNode=$('full-name');
+  const guestCountSelect=$('guest-count');
+  const guestCountFieldNode=$('guest-count-field');
+  function showInvitationError(message){
+    const alert=document.querySelector('.preview-alert');
+    if(alert){alert.style.display='block';alert.textContent=message}
+  }
+  function applyGuestDetails(guest){
+    invitationGuest=guest;
+    const displayName=String(guest.displayName||guest.name||'Tamu Undangan').slice(0,100);
+    guestNameNode.textContent=displayName;
+    guestNameNode.style.display='block';
+    if(openingGuestNode)openingGuestNode.textContent=displayName;
+    if(fullNameNode){fullNameNode.value=displayName;fullNameNode.readOnly=true;fullNameNode.setAttribute('aria-readonly','true')}
+    const max=Math.max(1,Math.min(guest.maxGuests||1,10));
+    if(guestCountSelect){
+      guestCountSelect.replaceChildren();
+      for(let n=1;n<=max;n++){const option=document.createElement('option');option.value=String(n);option.textContent=n+' orang';guestCountSelect.appendChild(option)}
+      guestCountSelect.value='1';
+    }
+    const small=guestCountFieldNode&&guestCountFieldNode.querySelector('small');
+    if(small)small.textContent=guest.type==='Keluarga'?'Pilih jumlah anggota keluarga yang akan hadir (maksimal '+max+' orang).':'Termasuk Anda sendiri (maksimal '+max+' orang).';
+    const alert=document.querySelector('.preview-alert');
+    if(alert){alert.style.display='none'}
+  }
+  function loadInvitationGuest(){
+    if(!invitationToken){showInvitationError('Silakan buka undangan menggunakan link personal yang diberikan kepada Anda untuk melakukan RSVP.');const submit=document.querySelector('#rsvp-form button[type="submit"]');if(submit)submit.disabled=true;return}
+    const callback='invitationGuestCallback_'+Date.now();
+    const script=document.createElement('script');
+    let finished=false;
+    const timeout=setTimeout(()=>{cleanup();showInvitationError('Data undangan belum dapat diverifikasi. Periksa koneksi lalu muat ulang halaman.')},10000);
+    function cleanup(){if(finished)return;finished=true;clearTimeout(timeout);try{delete window[callback]}catch(_e){window[callback]=undefined}script.remove()}
+    window[callback]=(data)=>{cleanup();if(data&&data.ok&&data.guest){applyGuestDetails(data.guest)}else{showInvitationError((data&&data.error)||'Token undangan tidak valid atau sudah dinonaktifkan.');const submit=document.querySelector('#rsvp-form button[type="submit"]');if(submit)submit.disabled=true}};
+    script.onerror=()=>{cleanup();showInvitationError('Gagal memverifikasi link undangan. Silakan coba kembali.')};
+    script.src=RSVP_ENDPOINT+'?action=guest&token='+encodeURIComponent(invitationToken)+'&callback='+encodeURIComponent(callback)+'&t='+Date.now();
+    document.head.appendChild(script);
+  }
+  loadInvitationGuest();
 
   // Countdown uses Indonesia Western Time (UTC+7).
   const countdownNodes={days:$('days'),hours:$('hours'),minutes:$('minutes'),seconds:$('seconds')};
@@ -821,8 +864,6 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
   const STORAGE_KEY='naufal-yulianti-wishes-v1';
   // === PENGATURAN ===
   const WA_NUMBER='62XXXXXXXXXXX'; // nomor WhatsApp tujuan konfirmasi, format 62812xxxx (tanpa + dan 0)
-  const RSVP_ENDPOINT='https://script.google.com/macros/s/AKfycbyF87936cHUqyaGjVBq4dyLhArPVPbVWLfXMFwu2FIbMenTt_fpZxrTPJ8rF6ToU9iraA/exec'; // URL Web App dari Deploy > Manage deployments.
-  if(RSVP_ENDPOINT){const a=document.querySelector('.preview-alert');if(a)a.style.display='none'}
   let memoryWishes=[],onlineWishes=[],onlineWishesLoaded=false,onlineWishesFailed=false;
   function loadWishes(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(value)?value:memoryWishes.slice()}catch(_e){return memoryWishes.slice()}}
   function renderWishes(){
@@ -847,7 +888,7 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
   }
   attendance.addEventListener('change',()=>{const coming=attendance.value==='Hadir';guestCountField.hidden=!coming;guestCount.required=coming;if(!coming)guestCount.value='1'});
   wishes.addEventListener('input',()=>charCount.textContent=String(wishes.value.length));
-  form.addEventListener('submit',async event=>{event.preventDefault();const name=$('full-name').value.trim();if(!name){$('form-message').textContent='Silakan isi nama lengkap.';$('form-message').className='form-message error';return}if(!form.reportValidity())return;const message=wishes.value.trim();const item={name,attendance:attendance.value,guests:attendance.value==='Hadir'?Number(guestCount.value):0,message,show:$('show-wishes').checked&&!!message,time:new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}),submittedAt:new Date().toISOString()};const all=loadWishes();all.push(item);memoryWishes=all.slice(-30);let persisted=false;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(memoryWishes));persisted=true}catch(_e){}const submitButton=form.querySelector('button[type="submit"]');submitButton.disabled=true;submitButton.setAttribute('aria-busy','true');if(RSVP_ENDPOINT){$('form-message').textContent='Mengirim konfirmasi ke penyimpanan online…';$('form-message').className='form-message';try{await fetch(RSVP_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(item)});$('form-message').textContent='Permintaan pengiriman sudah dikirim ke Google Sheets. Karena browser tidak dapat membaca balasan Web App dalam mode ini, pastikan data masuk pada sheet RSVP.';$('form-message').className='form-message success';setTimeout(fetchOnlineWishes,1200)}catch(_e){$('form-message').textContent='Pengiriman online gagal terhubung. Data ini hanya tersimpan pada browser jika penyimpanan lokal tersedia. Silakan coba lagi atau gunakan WhatsApp.';$('form-message').className='form-message error'}}else{$('form-message').textContent=persisted?'Konfirmasi dicatat pada browser ini. Belum terkirim ke penyimpanan online.':'Konfirmasi hanya tersimpan sementara selama halaman ini terbuka; belum terkirim ke penyimpanan online.';$('form-message').className='form-message success'}submitButton.disabled=false;submitButton.removeAttribute('aria-busy');fetchOnlineWishes();renderWishes();form.reset();charCount.textContent='0';guestCountField.hidden=false;guestCount.required=true;setTimeout(()=>$('form-message').scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'}),50)});
+  form.addEventListener('submit',async event=>{event.preventDefault();const name=$('full-name').value.trim();if(!name){$('form-message').textContent='Silakan isi nama lengkap.';$('form-message').className='form-message error';return}if(!form.reportValidity())return;const message=wishes.value.trim();if(!invitationToken||!invitationGuest){$('form-message').textContent='Link undangan belum tervalidasi. Gunakan link personal yang diberikan kepada Anda.';$('form-message').className='form-message error';return}const requestedGuests=attendance.value==='Hadir'?Number(guestCount.value):0;if(attendance.value==='Hadir'&&requestedGuests>Number(invitationGuest.maxGuests||1)){$('form-message').textContent='Jumlah tamu melebihi batas undangan.';$('form-message').className='form-message error';return}const item={token:invitationToken,name,attendance:attendance.value,guests:requestedGuests,message,show:$('show-wishes').checked&&!!message,time:new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}),submittedAt:new Date().toISOString()};const all=loadWishes();all.push(item);memoryWishes=all.slice(-30);let persisted=false;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(memoryWishes));persisted=true}catch(_e){}const submitButton=form.querySelector('button[type="submit"]');submitButton.disabled=true;submitButton.setAttribute('aria-busy','true');if(RSVP_ENDPOINT){$('form-message').textContent='Mengirim konfirmasi ke penyimpanan online…';$('form-message').className='form-message';try{await fetch(RSVP_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(item)});$('form-message').textContent='Permintaan pengiriman sudah dikirim ke Google Sheets. Karena browser tidak dapat membaca balasan Web App dalam mode ini, pastikan data masuk pada sheet RSVP.';$('form-message').className='form-message success';setTimeout(fetchOnlineWishes,1200)}catch(_e){$('form-message').textContent='Pengiriman online gagal terhubung. Data ini hanya tersimpan pada browser jika penyimpanan lokal tersedia. Silakan coba lagi atau gunakan WhatsApp.';$('form-message').className='form-message error'}}else{$('form-message').textContent=persisted?'Konfirmasi dicatat pada browser ini. Belum terkirim ke penyimpanan online.':'Konfirmasi hanya tersimpan sementara selama halaman ini terbuka; belum terkirim ke penyimpanan online.';$('form-message').className='form-message success'}submitButton.disabled=false;submitButton.removeAttribute('aria-busy');fetchOnlineWishes();renderWishes();form.reset();charCount.textContent='0';guestCountField.hidden=false;guestCount.required=true;setTimeout(()=>$('form-message').scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'}),50)});
   renderWishes();
   fetchOnlineWishes();
 
@@ -863,7 +904,7 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
   if(opening){document.body.classList.add('locked');buildOpeningFx(opening);$('opening-guest').textContent=$('guest-name').textContent;
     $('opening-btn').addEventListener('click',()=>{opening.classList.add('gone');document.body.classList.remove('locked');window.scrollTo(0,0);window.__startMusic();setTimeout(()=>opening.remove(),1500)})}
   // RSVP via WhatsApp.
-  $('wa-rsvp').addEventListener('click',()=>{const name=$('full-name').value.trim();if(!name){showToast('Silakan isi nama lengkap terlebih dahulu.');return}
+  $('wa-rsvp').addEventListener('click',()=>{const name=$('full-name').value.trim();if(!invitationToken||!invitationGuest){showToast('Buka link undangan personal yang valid terlebih dahulu.');return}if(!name){showToast('Silakan isi nama lengkap terlebih dahulu.');return}
     if(!/^62\d{8,13}$/.test(WA_NUMBER)){showToast('Nomor WhatsApp tujuan belum diatur.');return}
     const coming=attendance.value==='Hadir';const msg=['Assalamualaikum, saya '+name+'.',coming?'Insya Allah saya akan hadir ('+guestCount.value+' orang).':'Mohon maaf, saya belum bisa hadir.',wishes.value.trim()?'Ucapan: '+wishes.value.trim():''].filter(Boolean).join('\n');
     window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank','noopener')});
