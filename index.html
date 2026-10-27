@@ -799,7 +799,15 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
   }
   function applyGuestDetails(guest){
     invitationGuest=guest;
-    const displayName=String(guest.displayName||guest.name||'Tamu Undangan').slice(0,100);
+    const rawName=String(guest.name||'Tamu Undangan').trim();
+    const salutation=String(guest.salutation||'').trim();
+    let displayName=String(guest.displayName||'').trim();
+    if(!displayName){
+      const alreadyPrefixed=salutation && rawName.toLocaleLowerCase('id-ID').startsWith(salutation.toLocaleLowerCase('id-ID')+' ');
+      displayName=salutation?(alreadyPrefixed?rawName:salutation+' '+rawName):rawName;
+      if(guest.type==='Keluarga'&&!/\s*&\s*Keluarga$/i.test(displayName))displayName+=' & Keluarga';
+    }
+    displayName=displayName.slice(0,100);
     guestNameNode.textContent=displayName;
     guestNameNode.style.display='block';
     if(openingGuestNode)openingGuestNode.textContent=displayName;
