@@ -730,7 +730,7 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
         <button class="btn" type="submit">Kirim Konfirmasi <span aria-hidden="true">↗</span></button><button class="btn outline btn-wa" type="button" id="wa-rsvp">Konfirmasi via WhatsApp</button><div class="form-message" id="form-message" role="status" aria-live="polite"></div>
       </form>
     </div>
-    <div class="guestbook"><div class="guestbook-head reveal"><div class="eyebrow">Dari hati</div><h3>Ucapan dari Tamu</h3><p style="font:12px/1.8 var(--sans);color:var(--muted);margin:0">Ucapan yang disimpan pada browser ini akan tampil di sini.</p></div><div class="wishes-list" id="wishes-list"><div class="no-wishes">Belum ada ucapan yang ditampilkan pada browser ini.</div></div></div>
+    <div class="guestbook"><div class="guestbook-head reveal"><div class="eyebrow">Dari hati</div><h3>Ucapan dari Tamu</h3><p style="font:12px/1.8 var(--sans);color:var(--muted);margin:0">Ucapan yang diizinkan akan ditampilkan di sini.</p></div><div class="wishes-list" id="wishes-list"><div class="no-wishes">Belum ada ucapan yang ditampilkan pada browser ini.</div></div></div>
   </div>
 </section>
 
@@ -823,31 +823,31 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
   const WA_NUMBER='62XXXXXXXXXXX'; // nomor WhatsApp tujuan konfirmasi, format 62812xxxx (tanpa + dan 0)
   const RSVP_ENDPOINT='https://script.google.com/macros/s/AKfycbyF87936cHUqyaGjVBq4dyLhArPVPbVWLfXMFwu2FIbMenTt_fpZxrTPJ8rF6ToU9iraA/exec'; // URL Web App dari Deploy > Manage deployments.
   if(RSVP_ENDPOINT){const a=document.querySelector('.preview-alert');if(a)a.style.display='none'}
-  let memoryWishes=[],onlineWishes=[],onlineWishesLoaded=false;
+  let memoryWishes=[],onlineWishes=[],onlineWishesLoaded=false,onlineWishesFailed=false;
   function loadWishes(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(value)?value:memoryWishes.slice()}catch(_e){return memoryWishes.slice()}}
   function renderWishes(){
     const list=$('wishes-list');
-    // Setelah respons server diterima, utamakan daftar bersama dari Google Sheets.
-    // Sebelum itu, gunakan data lokal agar buku tamu tetap bisa dirender.
-    let items=(onlineWishesLoaded?onlineWishes:loadWishes()).filter(item=>item.show&&item.message);
+    // Buku tamu publik hanya memakai data dari Google Sheets, bukan localStorage.
+    const items=onlineWishesLoaded?onlineWishes.filter(item=>item.show&&item.message):[];
     list.replaceChildren();
-    if(!items.length){const empty=document.createElement('div');empty.className='no-wishes';empty.textContent=onlineWishesLoaded?'Belum ada ucapan yang diizinkan untuk ditampilkan.':'Memuat ucapan dari buku tamu…';list.append(empty);return}
+    if(!onlineWishesLoaded){const empty=document.createElement('div');empty.className='no-wishes';empty.textContent=onlineWishesFailed?'Ucapan online belum dapat dimuat. Silakan muat ulang halaman.':'Memuat ucapan dari buku tamu…';list.append(empty);return}
+    if(!items.length){const empty=document.createElement('div');empty.className='no-wishes';empty.textContent='Belum ada ucapan yang diizinkan untuk ditampilkan.';list.append(empty);return}
     items.slice(0,6).forEach(item=>{const card=document.createElement('article');card.className='wish-card';const name=document.createElement('strong');name.textContent=item.name||'Tamu';const msg=document.createElement('p');msg.textContent=item.message;const time=document.createElement('time');time.textContent=item.time||'';card.append(name,msg,time);list.append(card)})
   }
   function fetchOnlineWishes(){
-    if(!RSVP_ENDPOINT)return;
+    if(!RSVP_ENDPOINT){onlineWishesFailed=true;renderWishes();return}
     const callback='rsvpWishesCallback_'+Date.now();
     const script=document.createElement('script');
-    const timeout=setTimeout(()=>{cleanup();if(!onlineWishesLoaded)renderWishes()},10000);
+    const timeout=setTimeout(()=>{cleanup();if(!onlineWishesLoaded){onlineWishesFailed=true;renderWishes()}},10000);
     function cleanup(){clearTimeout(timeout);try{delete window[callback]}catch(_e){window[callback]=undefined}script.remove()}
-    window[callback]=(data)=>{cleanup();if(data&&data.ok&&Array.isArray(data.wishes)){onlineWishes=data.wishes.map(item=>({name:item.name,message:item.message,show:item.show==='Ya',time:item.time||''}));onlineWishesLoaded=true;renderWishes()}};
-    script.onerror=()=>{cleanup();renderWishes()};
+    window[callback]=(data)=>{cleanup();if(data&&data.ok&&Array.isArray(data.wishes)){onlineWishes=data.wishes.map(item=>({name:item.name,message:item.message,show:item.show===undefined||item.show===null||item.show===''||item.show==='Ya',time:item.time||''}));onlineWishesLoaded=true;onlineWishesFailed=false;renderWishes()}else{onlineWishesFailed=true;renderWishes()}};
+    script.onerror=()=>{cleanup();if(!onlineWishesLoaded){onlineWishesFailed=true;renderWishes()}};
     script.src=RSVP_ENDPOINT+'?action=wishes&callback='+encodeURIComponent(callback)+'&t='+Date.now();
     document.head.appendChild(script);
   }
   attendance.addEventListener('change',()=>{const coming=attendance.value==='Hadir';guestCountField.hidden=!coming;guestCount.required=coming;if(!coming)guestCount.value='1'});
   wishes.addEventListener('input',()=>charCount.textContent=String(wishes.value.length));
-  form.addEventListener('submit',async event=>{event.preventDefault();const name=$('full-name').value.trim();if(!name){$('form-message').textContent='Silakan isi nama lengkap.';$('form-message').className='form-message error';return}if(!form.reportValidity())return;const message=wishes.value.trim();const item={name,attendance:attendance.value,guests:attendance.value==='Hadir'?Number(guestCount.value):0,message,show:$('show-wishes').checked&&!!message,time:new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}),submittedAt:new Date().toISOString()};const all=loadWishes();all.push(item);memoryWishes=all.slice(-30);let persisted=false;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(memoryWishes));persisted=true}catch(_e){}const submitButton=form.querySelector('button[type="submit"]');submitButton.disabled=true;submitButton.setAttribute('aria-busy','true');if(RSVP_ENDPOINT){$('form-message').textContent='Mengirim konfirmasi ke penyimpanan online…';$('form-message').className='form-message';try{await fetch(RSVP_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(item)});$('form-message').textContent='Permintaan pengiriman sudah dikirim ke Google Sheets. Karena browser tidak dapat membaca balasan Web App dalam mode ini, pastikan data masuk pada sheet RSVP.';$('form-message').className='form-message success';setTimeout(fetchOnlineWishes,1200)}catch(_e){$('form-message').textContent='Pengiriman online gagal terhubung. Data ini hanya tersimpan pada browser jika penyimpanan lokal tersedia. Silakan coba lagi atau gunakan WhatsApp.';$('form-message').className='form-message error'}}else{$('form-message').textContent=persisted?'Konfirmasi dicatat pada browser ini. Belum terkirim ke penyimpanan online.':'Konfirmasi hanya tersimpan sementara selama halaman ini terbuka; belum terkirim ke penyimpanan online.';$('form-message').className='form-message success'}submitButton.disabled=false;submitButton.removeAttribute('aria-busy');renderWishes();form.reset();charCount.textContent='0';guestCountField.hidden=false;guestCount.required=true;setTimeout(()=>$('form-message').scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'}),50)});
+  form.addEventListener('submit',async event=>{event.preventDefault();const name=$('full-name').value.trim();if(!name){$('form-message').textContent='Silakan isi nama lengkap.';$('form-message').className='form-message error';return}if(!form.reportValidity())return;const message=wishes.value.trim();const item={name,attendance:attendance.value,guests:attendance.value==='Hadir'?Number(guestCount.value):0,message,show:$('show-wishes').checked&&!!message,time:new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}),submittedAt:new Date().toISOString()};const all=loadWishes();all.push(item);memoryWishes=all.slice(-30);let persisted=false;try{localStorage.setItem(STORAGE_KEY,JSON.stringify(memoryWishes));persisted=true}catch(_e){}const submitButton=form.querySelector('button[type="submit"]');submitButton.disabled=true;submitButton.setAttribute('aria-busy','true');if(RSVP_ENDPOINT){$('form-message').textContent='Mengirim konfirmasi ke penyimpanan online…';$('form-message').className='form-message';try{await fetch(RSVP_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(item)});$('form-message').textContent='Permintaan pengiriman sudah dikirim ke Google Sheets. Karena browser tidak dapat membaca balasan Web App dalam mode ini, pastikan data masuk pada sheet RSVP.';$('form-message').className='form-message success';setTimeout(fetchOnlineWishes,1200)}catch(_e){$('form-message').textContent='Pengiriman online gagal terhubung. Data ini hanya tersimpan pada browser jika penyimpanan lokal tersedia. Silakan coba lagi atau gunakan WhatsApp.';$('form-message').className='form-message error'}}else{$('form-message').textContent=persisted?'Konfirmasi dicatat pada browser ini. Belum terkirim ke penyimpanan online.':'Konfirmasi hanya tersimpan sementara selama halaman ini terbuka; belum terkirim ke penyimpanan online.';$('form-message').className='form-message success'}submitButton.disabled=false;submitButton.removeAttribute('aria-busy');fetchOnlineWishes();renderWishes();form.reset();charCount.textContent='0';guestCountField.hidden=false;guestCount.required=true;setTimeout(()=>$('form-message').scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'}),50)});
   renderWishes();
   fetchOnlineWishes();
 
