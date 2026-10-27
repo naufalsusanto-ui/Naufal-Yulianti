@@ -1,44 +1,43 @@
-# Undangan Pernikahan Naufal & Yulianti — Veloura Inspired
+# Undangan Pernikahan Naufal & Yulianti
 
-Template website statis, Bahasa Indonesia, dengan tampilan editorial romantic blush, ornamen floral SVG, animasi halus, galeri lightbox, hitung mundur, Google Maps, Google Calendar, serta formulir RSVP demo.
+Website undangan statis berbahasa Indonesia dengan tema romantic blush / Dusty Pink, ornamen floral, hitung mundur, peta, Google Calendar, kolase cerita cinta, galeri lightbox, dan formulir RSVP pratinjau.
 
-## Data acara
-- Mempelai pria: Naufal Zain Susanto
-- Orang tua pria: Bapak Budi Susanto & Ibu Teti Karyati
-- Mempelai wanita: Yulianti Effendi
-- Orang tua wanita: Bapak Rustam Effendi & Ibu Wiwin Winangsih
-- Akad: Minggu, 27 Desember 2026, pukul 08.00 WIB sampai selesai
-- Resepsi: Minggu, 27 Desember 2026, pukul 11.00–14.00 WIB
-- Tempat: BOEMI AOM, Jl. Ciledug No. 268B, Garut
+## Detail acara yang tercantum
+- Mempelai pria: Naufal Zain Susanto — Putra kedua dari Bapak Budi Susanto dan Ibu Teti Karyati.
+- Mempelai wanita: Yulianti Effendi — Putri pertama dari Bapak Rustam Effendi dan Ibu Wiwin Winangsih.
+- Akad: Minggu, 27 Desember 2026, pukul 08.00 WIB sampai selesai.
+- Resepsi: Minggu, 27 Desember 2026, pukul 11.00–14.00 WIB.
+- Tempat: BOEMI AOM, Jl. Ciledug No. 268B, Garut.
 
-## Menjalankan lokal
+## Menjalankan secara lokal
 1. Ekstrak ZIP.
-2. Buka folder `undangan-naufal-yulianti-veloura`.
-3. Klik dua kali `index.html` untuk melihat di browser.
+2. Buka `index.html` di browser.
+3. Koneksi internet diperlukan untuk Google Fonts, Google Maps, dan Google Calendar.
 
-## Memasang ke GitHub Pages
-Unggah **isi folder ini** ke root repositori (`index.html`, `README.md`, `.gitignore`, dan folder `assets`). Jangan unggah folder pembungkusnya sebagai folder satu tingkat di dalam repositori. Pada GitHub, buka Settings → Pages, pilih `Deploy from a branch`, branch `main`, folder `/(root)`.
+## Publikasi ke GitHub Pages
+1. Buat/buka repositori GitHub.
+2. Unggah **isi folder hasil ekstraksi** ke root repositori: `index.html`, `README.md`, `.gitignore`, dan folder `assets`.
+3. Di Settings → Pages, pilih `Deploy from a branch`, branch `main`, folder `/(root)`.
+4. Setelah terbit, buka website melalui URL HTTPS GitHub Pages.
+5. Untuk pratinjau gambar saat link dibagikan ke WhatsApp, ubah nilai `og:image` pada `index.html` menjadi URL HTTPS absolut ke `assets/images/cover.jpg` pada domain website yang sudah terbit.
 
-## Catatan fungsi
-- RSVP disimpan pada `localStorage` browser lokal saja. Formulir belum terhubung ke Google Sheets atau database online, sehingga jawaban tidak terkirim ke pemilik undangan dari perangkat tamu.
-- Musik memakai jalur `assets/audio/wedding-music.mp3`; tambahkan file MP3 yang memiliki izin penggunaan untuk mengaktifkan tombol musik. Folder audio berisi README petunjuk.
-- Data rekening dan alamat pengiriman hadiah tidak tersedia di PDF sumber, jadi tampil sebagai catatan untuk dilengkapi, bukan data rekaan.
-- Foto yang digunakan berasal dari foto yang tersedia bersama materi undangan; profil memakai crop foto pasangan karena materi yang diberikan tidak menyertakan foto studio individual yang terpisah.
-- Font Google akan tampil jika internet tersedia; fallback font lokal disediakan.
+## Pengaturan yang perlu diketahui
+- **RSVP belum tersambung ke penyimpanan online.** Formulir saat ini memberi tahu bahwa data hanya tersimpan pada browser/perangkat pengunjung. Untuk mengumpulkan jawaban tamu secara terpusat, isi `RSVP_ENDPOINT` dengan URL Web App Google Apps Script yang sudah dibuat dan diuji. Jangan mengisi dengan URL sembarang.
+- **WhatsApp RSVP belum aktif sampai nomor tujuan diisi.** Pada bagian `=== PENGATURAN ===` di `index.html`, ganti `WA_NUMBER` dari `62XXXXXXXXXXX` menjadi nomor WhatsApp tujuan dalam format internasional tanpa `+` dan tanpa angka `0` awal.
+- **Musik belum disertakan.** Untuk mengaktifkannya, tambahkan file MP3 yang Anda miliki hak/izinnya ke `assets/audio/wedding-music.mp3`. Tombol akan memberi pemberitahuan jika file belum ada.
+- Data rekening dan alamat pengiriman hadiah belum tersedia, sehingga bagian tersebut tidak mengarang detail.
+- Font web dimuat dari Google Fonts; fallback font disediakan jika layanan font tidak tersedia.
+- Foto JPEG dioptimalkan untuk web dan metadata EXIF/GPS dihapus. Simpan file foto asli di komputer sebagai arsip.
 
-## Revisi ornamen tengah
-- Posisi garland bunga kini benar-benar terpusat. Animasi hanya menggerakkan ornamen pada sumbu vertikal, sehingga tidak terjadi pergeseran ganda ke kiri.
-- Ukuran garland mengikuti lebar layar desktop dan HP.
+## Catatan revisi ini
+- Kolase Cerita Cinta Kami ditata ulang menjadi grid editorial responsif untuk enam foto.
+- Paragraf cerita, doa, profil, dan bagian informasi diperbesar agar lebih mudah dibaca.
+- Teks Arab QS. Ar-Rum: 21 dan QS. Al-Furqan: 74 ditampilkan dengan tipografi RTL. Periksa kembali ayat terhadap mushaf tepercaya sebelum publikasi.
+- Ditambahkan tautan lewati ke konten, indikator fokus keyboard, dan penanganan pengaturan `prefers-reduced-motion`.
+- Foto galeri tetap mendukung filter dan lightbox.
 
-## Revisi ornamen meriah & megah
-- Tirai sutra tembus pandang (dua gaya, bergantian arah) menggantung di dasar tiap bagian.
-- Kilau emas berkelip dan bokeh cahaya di Beranda, Hitung Mundur, Hadiah, dan Penutup.
-- Sulur bunga di tepi kiri/kanan khusus layar lebar (≥1240px), memanfaatkan ruang margin sehingga tidak menimpa konten.
-- Penempatan sudut bunga diatur per ukuran layar (HP, tablet, desktop) dengan ruang napas di atas/bawah judul agar teks tetap terbaca.
-- Semua animasi berhenti bila pengunjung memilih "kurangi gerakan".
-
-- Foto galeri kini berbingkai tipis emas dengan kuntum mawar dan daun di dua sudut diagonal (arah berganti antar foto); bingkai bersinar halus saat disentuh atau disorot kursor.
-
-- Kelopak jatuh kini beragam: kelopak mawar, bunga putih kecil, daun sage, dan keping emas dengan tiga lapis kedalaman (jauh buram, dekat jelas), meliuk sambil berputar. Jumlah partikel menyesuaikan layar (14/22/30), berhenti saat tab tidak aktif dan saat memilih kurangi gerakan.
-
-- Monogram N & Y di cover dan penutup kini berupa segel dengan karangan mawar melingkar dan cincin emas; karangan berputar sangat pelan dan cakram tengah berkilau halus.
+## Revisi tahap 6 — Cerita Cinta Kami
+- Foto cerita kini berupa 6 foto portrait utuh (tanpa crop) yang digantung di tali emas dengan penjepit kayu: tali melengkung di desktop, dua baris tali (2 kolom × 3 baris) di HP.
+- Animasi: foto "jatuh" tergantung saat bagian terlihat, lalu bergoyang pelan; charm hati berdenyut di tengah tali. Animasi mati otomatis untuk pengunjung dengan reduced motion.
+- Foto bisa diketuk/diklik untuk membuka pratinjau besar (lightbox yang sama dengan galeri), juga lewat keyboard (Enter/Spasi).
+- Aturan CSS kolase lama yang saling bertabrakan (47 baris) dihapus; kini hanya ada satu blok aturan kolase.
