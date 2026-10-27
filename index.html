@@ -821,7 +821,7 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
   const STORAGE_KEY='naufal-yulianti-wishes-v1';
   // === PENGATURAN ===
   const WA_NUMBER='62XXXXXXXXXXX'; // nomor WhatsApp tujuan konfirmasi, format 62812xxxx (tanpa + dan 0)
-  const RSVP_ENDPOINT='https://script.google.com/macros/s/AKfycbF87936cHUqyaGjVBq4dyLhArPVPbVWLfXMFwu2FIbMenTt_fpZxrTPJ8rF6ToU9iraA/exec'; // URL Web App dari Deploy > Manage deployments.
+  const RSVP_ENDPOINT='https://script.google.com/macros/s/AKfycbyF87936cHUqyaGjVBq4dyLhArPVPbVWLfXMFwu2FIbMenTt_fpZxrTPJ8rF6ToU9iraA/exec'; // URL Web App dari Deploy > Manage deployments.
   if(RSVP_ENDPOINT){const a=document.querySelector('.preview-alert');if(a)a.style.display='none'}
   let memoryWishes=[],onlineWishes=[],onlineWishesLoaded=false;
   function loadWishes(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(value)?value:memoryWishes.slice()}catch(_e){return memoryWishes.slice()}}
