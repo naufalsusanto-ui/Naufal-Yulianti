@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Pengelola Pesan Undangan | Naufal &amp; Yulianti</title>
+<style>
+:root{color-scheme:light;--ink:#49383b;--muted:#76666a;--rose:#a65f6b;--line:#eadadd;--paper:#fffaf8;--gold:#b99a58}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{max-width:1050px;margin:auto;padding:32px 20px 64px}h1,h2{font-family:Georgia,serif;font-weight:500}h1{font-size:clamp(2rem,5vw,3rem);margin:.2em 0}p{color:var(--muted)}.panel,.card{background:white;border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0;box-shadow:0 8px 24px #70464b0a}label{display:block;font-weight:600;margin:12px 0 5px}input[type=text],input[type=file]{width:100%;padding:11px;border:1px solid #d8c6c9;border-radius:9px;color:var(--ink);background:white}button,.button{border:0;border-radius:9px;background:var(--rose);color:white;padding:11px 16px;font-weight:650;cursor:pointer;text-decoration:none;display:inline-block}button:disabled{opacity:.45;cursor:not-allowed}.secondary{background:#f5e9e9;color:var(--ink);border:1px solid var(--line)}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.toolbar>div{flex:1;min-width:220px}.small{font-size:.9rem}.notice{border-left:4px solid var(--gold);padding:10px 14px;background:#fcf8ed;color:#665735}.status{color:#526b4f;font-weight:650}.meta{font-size:.92rem;color:var(--muted)}.card h2{font-size:1.35rem;margin:0 0 5px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.counter{font-weight:650}#list[hidden],#empty[hidden]{display:none}@media(max-width:600px){.wrap{padding:20px 14px}.panel,.card{padding:16px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<p>Pengelola pribadi · Naufal &amp; Yulianti</p>
+<h1>Siapkan pesan undangan</h1>
+<p>Impor CSV daftar tamu bertoken, buka pesan WhatsApp satu per satu, lalu tandai terkirim setelah Anda menekan Kirim di WhatsApp.</p>
+<div class="notice"><strong>Privasi:</strong> data CSV diproses di browser ini dan tidak diunggah ke situs. Jangan kirim tautan halaman ini bersama file tamu. Status hanya tersedia selama tab terbuka; unduh CSV hasil setelah selesai untuk menyimpan perubahan.</div>
+<section class="panel">
+<label for="csv">Pilih CSV daftar tamu bertoken</label><input id="csv" type="file" accept=".csv,text/csv">
+<p class="small">Kolom wajib: <code>token,nama</code>. Opsional: <code>sapaan,whatsapp,status_pengiriman</code>. Nomor WhatsApp tamu sebaiknya format internasional, misalnya 62812…</p>
+<div class="toolbar"><div><label for="base">Alamat dasar undangan</label><input id="base" type="text" value="https://naufalsusanto-ui.github.io/Naufal-Yulianti/"></div><div><button id="export" class="secondary" disabled>Unduh CSV status</button></div></div>
+<p id="summary" class="counter" aria-live="polite"></p>
+</section>
+<div id="empty" class="panel">Pilih CSV untuk menampilkan tamu yang memiliki token.</div>
+<section id="list" aria-live="polite"></section>
+</main>
+<script>
+(()=> {
+  const input=document.getElementById('csv'), list=document.getElementById('list'), empty=document.getElementById('empty'), summary=document.getElementById('summary'), exportBtn=document.getElementById('export'), baseInput=document.getElementById('base');
+  let guests=[];
+  function parseCSV(text){
+    const rows=[];let row=[],cell='',quoted=false;
+    for(let i=0;i<text.length;i++){const c=text[i];if(quoted){if(c==='"'&&text[i+1]==='"'){cell+='"';i++}else if(c==='"')quoted=false;else cell+=c}else if(c==='"')quoted=true;else if(c===','){row.push(cell);cell=''}else if(c==='\n'){row.push(cell);rows.push(row);row=[];cell=''}else if(c!=='\r')cell+=c}
+    if(cell.length||row.length){row.push(cell);rows.push(row)}return rows;
+  }
+  function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+  function csvCell(s){s=String(s??'');return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+  function invitationURL(token){const base=baseInput.value.trim();if(!base)return '';try{const u=new URL(base);u.searchParams.set('token',token);return u.toString()}catch(_){return ''}}
+  function makeMessage(g){const sal=(g.sapaan||'').trim();const name=(g.nama||'').trim();const address=[sal,name].filter(Boolean).join(' ');const who=address||'Bapak/Ibu/Saudara/i';return "Assalamu'alaikum Warahmatullahi Wabarakatuh.\n\nKepada Yth. "+who+(sal||/keluarga/i.test(name)?'':' beserta keluarga')+",\n\nDengan penuh kebahagiaan, kami mengundang Anda untuk menghadiri pernikahan kami:\n\nNaufal & Yulianti\nMinggu, 27 Desember 2026\n\nInformasi lengkap acara dan konfirmasi kehadiran dapat dilihat melalui tautan undangan pribadi berikut:\n"+invitationURL(g.token)+"\n\nMerupakan kebahagiaan bagi kami apabila Anda berkenan hadir dan memberikan doa restu. Terima kasih.\n\nWassalamu'alaikum Warahmatullahi Wabarakatuh."}
+  function draw(){
+    list.innerHTML='';empty.hidden=guests.length>0;list.hidden=!guests.length;exportBtn.disabled=!guests.length;
+    const sent=guests.filter(g=>g.status==='terkirim').length;summary.textContent=guests.length?guests.length+' tamu bertoken · '+sent+' ditandai terkirim':'';
+    guests.forEach((g,i)=>{const card=document.createElement('article');card.className='card';const title=[g.sapaan,g.nama].filter(Boolean).join(' ')||'Tamu '+(i+1);const link=invitationURL(g.token);const wa=g.whatsapp.replace(/[^0-9]/g,'');const message=makeMessage(g);const url=wa?'https://wa.me/'+encodeURIComponent(wa)+'?text='+encodeURIComponent(message):'';
+      card.innerHTML='<h2>'+esc(title)+'</h2><div class="meta">Token tersedia · '+(g.status==='terkirim'?'<span class="status">Sudah ditandai terkirim</span>':'Belum ditandai terkirim')+'</div><p class="small">Tautan personal: <a target="_blank" rel="noopener noreferrer" href="'+esc(link)+'">Pratinjau undangan</a></p><div class="actions">'+(url?'<a class="button wa" target="_blank" rel="noopener noreferrer" href="'+esc(url)+'" data-index="'+i+'">Buka WhatsApp Web</a>':'<span class="meta">Nomor WA belum ada di CSV; pesan bisa disalin dari tombol berikut.</span>')+'<button class="secondary copy" data-index="'+i+'">Salin pesan</button><button class="mark" data-index="'+i+'" '+(g.status==='terkirim'?'disabled':'disabled')+'>Sudah saya kirim</button></div>';
+      list.appendChild(card);
+    });
+  }
+  input.addEventListener('change',async()=>{const file=input.files&&input.files[0];if(!file)return;const rows=parseCSV(await file.text());if(!rows.length)return;const headers=rows.shift().map(x=>x.trim().toLowerCase().replace(/\s+/g,'_'));const ix=(...keys)=>headers.findIndex(h=>keys.includes(h));const ti=ix('token','undangan_token');const ni=ix('nama','name','nama_tamu');if(ti<0||ni<0){alert('CSV harus memiliki kolom token dan nama.');return}
+    guests=rows.map(r=>({token:(r[ti]||'').trim(),nama:(r[ni]||'').trim(),sapaan:(r[ix('sapaan','panggilan')]||'').trim(),whatsapp:(r[ix('whatsapp','no_whatsapp','nomor_whatsapp','phone')]||'').trim(),status:(r[ix('status_pengiriman','status') ]||'').trim().toLowerCase().includes('kirim')?'terkirim':''})).filter(g=>g.token&&g.nama);
+    draw();
+  });
+  list.addEventListener('click',async e=>{const a=e.target.closest('.wa');if(a){const button=a.closest('.card').querySelector('.mark');button.disabled=false;button.textContent='Sudah saya kirim';return}const copy=e.target.closest('.copy');if(copy){await navigator.clipboard.writeText(makeMessage(guests[Number(copy.dataset.index)]));copy.textContent='Pesan tersalin';setTimeout(()=>copy.textContent='Salin pesan',1600);return}const mark=e.target.closest('.mark');if(mark&&!mark.disabled){guests[Number(mark.dataset.index)].status='terkirim';draw()}});
+  exportBtn.addEventListener('click',()=>{const out=[['token','nama','sapaan','whatsapp','status_pengiriman'],...guests.map(g=>[g.token,g.nama,g.sapaan,g.whatsapp,g.status?'Sudah dikirim':'Belum dikirim'])].map(r=>r.map(csvCell).join(',')).join('\r\n');const blob=new Blob(['\ufeff'+out],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='status-undangan-naufal-yulianti.csv';a.click();URL.revokeObjectURL(a.href)});
+  baseInput.addEventListener('change',draw);
+})();
+</script>
+</body>
+</html>
