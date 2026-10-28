@@ -727,7 +727,7 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
         <div class="field" id="guest-count-field"><label for="guest-count">Jumlah tamu *</label><select id="guest-count" name="guestCount" required><option value="1">1 orang</option><option value="2">2 orang</option><option value="3">3 orang</option><option value="4">4 orang</option></select><small>Termasuk Anda sendiri.</small></div>
         <div class="field"><label for="wishes">Ucapan dan doa restu</label><textarea id="wishes" name="wishes" maxlength="500" placeholder="Tuliskan ucapan untuk kedua mempelai..."></textarea><small><span id="char-count">0</span>/500 karakter</small></div>
         <label class="consent"><input type="checkbox" id="show-wishes" name="showWishes"><span>Saya mengizinkan nama dan ucapan saya ditampilkan pada buku tamu di perangkat ini.</span></label>
-        <button class="btn" type="submit">Kirim Konfirmasi <span aria-hidden="true">↗</span></button><button class="btn outline btn-wa" type="button" id="wa-rsvp">Konfirmasi via WhatsApp</button><div class="form-message" id="form-message" role="status" aria-live="polite"></div>
+        <button class="btn" type="submit">Kirim Konfirmasi <span aria-hidden="true">↗</span></button><button class="btn outline btn-wa" type="button" id="wa-rsvp-pria">WhatsApp Keluarga Calon Pengantin Pria</button><button class="btn outline btn-wa" type="button" id="wa-rsvp-wanita">WhatsApp Keluarga Calon Pengantin Wanita</button><div class="form-message" id="form-message" role="status" aria-live="polite"></div>
       </form>
     </div>
     <div class="guestbook"><div class="guestbook-head reveal"><div class="eyebrow">Dari hati</div><h3>Ucapan dari Tamu</h3><p style="font:12px/1.8 var(--sans);color:var(--muted);margin:0">Ucapan yang diizinkan akan ditampilkan di sini.</p></div><div class="wishes-list" id="wishes-list"><div class="no-wishes">Belum ada ucapan yang ditampilkan pada browser ini.</div></div></div>
@@ -871,7 +871,7 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
   const form=$('rsvp-form'),attendance=$('attendance'),guestCountField=$('guest-count-field'),guestCount=$('guest-count'),wishes=$('wishes'),charCount=$('char-count');
   const STORAGE_KEY='naufal-yulianti-wishes-v1';
   // === PENGATURAN ===
-  const WA_NUMBER='62XXXXXXXXXXX'; // nomor WhatsApp tujuan konfirmasi, format 62812xxxx (tanpa + dan 0)
+  const WA_NUMBERS={pria:'628980956582',wanita:'6288808244271'}; // nomor WhatsApp tujuan, format internasional tanpa tanda +
   let memoryWishes=[],onlineWishes=[],onlineWishesLoaded=false,onlineWishesFailed=false;
   function loadWishes(){try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(value)?value:memoryWishes.slice()}catch(_e){return memoryWishes.slice()}}
   function renderWishes(){
@@ -910,11 +910,14 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
     for(let i=0;i<16;i++){const e=document.createElement('span');e.className='op-spark';e.textContent='✦';e.style.cssText='left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;font-size:'+(8+Math.random()*12)+'px;animation-delay:-'+Math.random()*4+'s;animation-duration:'+(2.5+Math.random()*3)+'s';fx.appendChild(e)}}
   const opening=$('opening');
   if(opening){document.body.classList.add('locked');buildOpeningFx(opening);$('opening-guest').textContent=$('guest-name').textContent;
-    $('opening-btn').addEventListener('click',()=>{opening.classList.add('gone');document.body.classList.remove('locked');window.scrollTo(0,0);window.__startMusic();setTimeout(()=>opening.remove(),1500)})}
-  // RSVP via WhatsApp.
-  $('wa-rsvp').addEventListener('click',()=>{const name=$('full-name').value.trim();if(!invitationToken||!invitationGuest){showToast('Buka link undangan personal yang valid terlebih dahulu.');return}if(!name){showToast('Silakan isi nama lengkap terlebih dahulu.');return}
-    if(!/^62\d{8,13}$/.test(WA_NUMBER)){showToast('Nomor WhatsApp tujuan belum diatur.');return}
-    const coming=attendance.value==='Hadir';const msg=['Assalamualaikum, saya '+name+'.',coming?'Insya Allah saya akan hadir ('+guestCount.value+' orang).':'Mohon maaf, saya belum bisa hadir.',wishes.value.trim()?'Ucapan: '+wishes.value.trim():''].filter(Boolean).join('\n');
+    $('opening-btn').addEventListener('click',(  // RSVP via WhatsApp: tamu dapat memilih pihak calon pengantin pria atau wanita.
+  function openRsvpWhatsApp(side){const name=$('full-name').value.trim();if(!invitationToken||!invitationGuest){showToast('Buka link undangan personal yang valid terlebih dahulu.');return}if(!name){showToast('Silakan isi nama lengkap terlebih dahulu.');return}
+    const number=WA_NUMBERS[side];if(!number||!/^62\\d{8,13}$/.test(number)){showToast('Nomor WhatsApp tujuan belum diatur dengan benar.');return}
+    const coming=attendance.value==='Hadir';const count=coming?guestCount.value+' orang':'0 orang';const msg=['Assalamualaikum, saya '+name+'.','Konfirmasi kehadiran untuk pernikahan Naufal & Yulianti: '+(coming?'Insya Allah saya akan hadir.':'Mohon maaf, saya belum bisa hadir.'),coming?'Jumlah tamu: '+count+'.':'Jumlah tamu: tidak ada.',wishes.value.trim()?'Ucapan: '+wishes.value.trim():''].filter(Boolean).join('\\n');
+    window.open('https://wa.me/'+number+'?text='+encodeURIComponent(msg),'_blank','noopener')}
+  $('wa-rsvp-pria').addEventListener('click',()=>openRsvpWhatsApp('pria'));
+  $('wa-rsvp-wanita').addEventListener('click',()=>openRsvpWhatsApp('wanita'));
+pan: '+wishes.value.trim():''].filter(Boolean).join('\n');
     window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank','noopener')});
   // Penanda menu aktif.
   if('IntersectionObserver' in window){const map={};links.querySelectorAll('a[href^="#"]').forEach(a=>map[a.getAttribute('href').slice(1)]=a);
