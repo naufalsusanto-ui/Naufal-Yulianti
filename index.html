@@ -910,15 +910,14 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
     for(let i=0;i<16;i++){const e=document.createElement('span');e.className='op-spark';e.textContent='✦';e.style.cssText='left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;font-size:'+(8+Math.random()*12)+'px;animation-delay:-'+Math.random()*4+'s;animation-duration:'+(2.5+Math.random()*3)+'s';fx.appendChild(e)}}
   const opening=$('opening');
   if(opening){document.body.classList.add('locked');buildOpeningFx(opening);$('opening-guest').textContent=$('guest-name').textContent;
-    $('opening-btn').addEventListener('click',(  // RSVP via WhatsApp: tamu dapat memilih pihak calon pengantin pria atau wanita.
+    $('opening-btn').addEventListener('click',()=>{opening.classList.add('gone');document.body.classList.remove('locked');window.scrollTo(0,0);window.__startMusic();setTimeout(()=>opening.remove(),1500)})}
+  // RSVP via WhatsApp: tamu dapat memilih pihak calon pengantin pria atau wanita.
   function openRsvpWhatsApp(side){const name=$('full-name').value.trim();if(!invitationToken||!invitationGuest){showToast('Buka link undangan personal yang valid terlebih dahulu.');return}if(!name){showToast('Silakan isi nama lengkap terlebih dahulu.');return}
-    const number=WA_NUMBERS[side];if(!number||!/^62\\d{8,13}$/.test(number)){showToast('Nomor WhatsApp tujuan belum diatur dengan benar.');return}
-    const coming=attendance.value==='Hadir';const count=coming?guestCount.value+' orang':'0 orang';const msg=['Assalamualaikum, saya '+name+'.','Konfirmasi kehadiran untuk pernikahan Naufal & Yulianti: '+(coming?'Insya Allah saya akan hadir.':'Mohon maaf, saya belum bisa hadir.'),coming?'Jumlah tamu: '+count+'.':'Jumlah tamu: tidak ada.',wishes.value.trim()?'Ucapan: '+wishes.value.trim():''].filter(Boolean).join('\\n');
+    const number=WA_NUMBERS[side];if(!number||!/^62\d{8,13}$/.test(number)){showToast('Nomor WhatsApp tujuan belum diatur dengan benar.');return}
+    const coming=attendance.value==='Hadir';const count=coming?guestCount.value+' orang':'0 orang';const msg=['Assalamualaikum, saya '+name+'.','Konfirmasi kehadiran untuk pernikahan Naufal & Yulianti: '+(coming?'Insya Allah saya akan hadir.':'Mohon maaf, saya belum bisa hadir.'),coming?'Jumlah tamu: '+count+'.':'Jumlah tamu: tidak ada.',wishes.value.trim()?'Ucapan: '+wishes.value.trim():''].filter(Boolean).join('\n');
     window.open('https://wa.me/'+number+'?text='+encodeURIComponent(msg),'_blank','noopener')}
   $('wa-rsvp-pria').addEventListener('click',()=>openRsvpWhatsApp('pria'));
   $('wa-rsvp-wanita').addEventListener('click',()=>openRsvpWhatsApp('wanita'));
-pan: '+wishes.value.trim():''].filter(Boolean).join('\n');
-    window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(msg),'_blank','noopener')});
   // Penanda menu aktif.
   if('IntersectionObserver' in window){const map={};links.querySelectorAll('a[href^="#"]').forEach(a=>map[a.getAttribute('href').slice(1)]=a);
     const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&map[e.target.id]){Object.values(map).forEach(a=>a.classList.remove('active'));map[e.target.id].classList.add('active')}}),{rootMargin:'-45% 0px -50% 0px'});
