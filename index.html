@@ -794,6 +794,14 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
 
   // Undangan personal: nama dan batas tamu hanya diambil dari token yang divalidasi Apps Script.
   const RSVP_ENDPOINT='https://script.google.com/macros/s/AKfycbyF87936cHUqyaGjVBq4dyLhArPVPbVWLfXMFwu2FIbMenTt_fpZxrTPJ8rF6ToU9iraA/exec';
+  // Panggil Web App tanpa cookie (credentials:'omit') agar tidak bentrok saat browser login ke banyak akun Google. Jika fetch gagal, fallback ke JSONP.
+  function fetchApi(url,callback,script){
+    fetch(url,{credentials:'omit',cache:'no-store'})
+      .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+      .then(data=>{if(typeof window[callback]==='function')window[callback](data)})
+      .catch(()=>{if(typeof window[callback]!=='function')return;script.src=url+'&callback='+encodeURIComponent(callback);document.head.appendChild(script)});
+  }
+
   const invitationParams=new URLSearchParams(window.location.search);
   const invitationToken=(invitationParams.get('token')||'').trim();
   let invitationGuest=null;
@@ -868,8 +876,7 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
       }
     };
     script.onerror=()=>{cleanup();failed('Gagal terhubung ke server undangan. Alamat Web App mungkin salah atau belum dibagikan sebagai "Anyone".')};
-    script.src=RSVP_ENDPOINT+'?action=guest&token='+encodeURIComponent(invitationToken)+'&callback='+encodeURIComponent(callback)+'&t='+Date.now();
-    document.head.appendChild(script);
+    fetchApi(RSVP_ENDPOINT+'?action=guest&token='+encodeURIComponent(invitationToken)+'&t='+Date.now(),callback,script);
   }
   if(coverRetry)coverRetry.addEventListener('click',()=>{setCoverStatus('Memverifikasi undangan…','loading',false);loadInvitationGuest(1)});
   loadInvitationGuest();
@@ -928,8 +935,7 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
     function cleanup(){clearTimeout(timeout);try{delete window[callback]}catch(_e){window[callback]=undefined}script.remove()}
     window[callback]=(data)=>{cleanup();if(data&&data.ok&&Array.isArray(data.wishes)){onlineWishes=data.wishes.map(item=>({name:item.name,message:item.message,show:item.show===undefined||item.show===null||item.show===''||item.show==='Ya',time:item.time||''}));onlineWishesLoaded=true;onlineWishesFailed=false;renderWishes()}else{onlineWishesFailed=true;renderWishes()}};
     script.onerror=()=>{cleanup();if(!onlineWishesLoaded){onlineWishesFailed=true;renderWishes()}};
-    script.src=RSVP_ENDPOINT+'?action=wishes&callback='+encodeURIComponent(callback)+'&t='+Date.now();
-    document.head.appendChild(script);
+    fetchApi(RSVP_ENDPOINT+'?action=wishes&t='+Date.now(),callback,script);
   }
   attendance.addEventListener('change',()=>{const coming=attendance.value==='Hadir';guestCountField.hidden=!coming;guestCount.required=coming;if(!coming)guestCount.value='1'});
   wishes.addEventListener('input',()=>charCount.textContent=String(wishes.value.length));
