@@ -574,12 +574,21 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
 @media(max-width:600px){.brand-kicker{display:none}.brand-text b{font-size:25px}.brand-date{font-size:9.5px;letter-spacing:.28em}.brand-mark{min-width:42px;height:42px}.brand-mark b{font-size:16px}.gift-method .method-icon{width:58px;height:58px}.gift-method h3{font-size:25px}}
 @media(max-width:380px){.brand-date{display:none}.brand-text b{font-size:22px}.brand-mark{min-width:38px;height:38px}.brand-ring{display:none}}
 @media(prefers-reduced-motion:reduce){.brand-ring,.gift-method .method-icon img{animation:none!important}}
+
+/* ===== Status verifikasi undangan di sampul ===== */
+.o-status{margin:6px auto 0;max-width:30em;font:italic 13px/1.5 var(--sans);color:#896e70;min-height:1.5em}
+.o-status.loading:before{content:"";display:inline-block;width:10px;height:10px;margin-right:7px;border:2px solid #d9b17e;border-top-color:transparent;border-radius:50%;vertical-align:-1px;animation:oSpin .8s linear infinite}
+.o-status.error{color:#a63a56;font-style:normal;font-weight:600}
+.o-retry{margin:8px auto 0;padding:7px 18px;border-radius:999px;border:1.5px solid #d9b17e;background:#fffaf6;color:#783744;font:600 12px var(--sans);cursor:pointer}
+.o-retry:hover{background:#fff3ea}
+@keyframes oSpin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.o-status.loading:before{animation:none}}
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
 <noscript><style>.opening{display:none}</style></noscript>
-<div class="opening" id="opening" role="dialog" aria-modal="true" aria-label="Sampul undangan"><div class="op-panel op-l"><img class="orn corner tl" src="assets/images/orn-lush-corner.svg" alt="" aria-hidden="true"><img class="orn corner bl" src="assets/images/orn-lush-corner.svg" alt="" aria-hidden="true"><img class="orn lantern" src="assets/images/orn-lantern.svg" alt="" aria-hidden="true" style="left:17%;top:0"></div><div class="op-panel op-r"><img class="orn corner tr" src="assets/images/orn-lush-corner.svg" alt="" aria-hidden="true"><img class="orn bouquet" src="assets/images/orn-bouquet.svg" alt="" aria-hidden="true"><img class="orn lantern" src="assets/images/orn-lantern.svg" alt="" aria-hidden="true" style="right:17%;top:0;animation-delay:-2s"></div><div class="op-fx" id="op-fx" aria-hidden="true"></div><div class="op-center"><img class="orn garland" src="assets/images/orn-garland.svg" alt="" aria-hidden="true"><div class="o-photo rise" style="--d:.1s"><span class="o-ring"></span><img src="assets/images/gallery-4.jpg" alt="Foto prewedding Naufal dan Yulianti"></div><p class="o-eyebrow rise" style="--d:.5s">Undangan Pernikahan</p><p class="o-guest rise" style="--d:.7s">Kepada Yth.<b id="opening-guest">Bapak/Ibu/Saudara/i</b></p><div class="o-rule rise" style="--d:.9s"><span>♥</span></div><p class="o-invite rise" style="--d:1s">Dengan segala kerendahan hati, kami mengundang Anda untuk berbagi kebahagiaan di hari pernikahan kami.</p><div class="o-names rise" style="--d:1.15s">Naufal <span>&amp;</span> Yulianti</div><button class="btn o-btn rise" style="--d:1.4s" type="button" id="opening-btn">Buka Undangan</button><p class="o-note rise" style="--d:1.6s">Mohon maaf apabila terdapat kesalahan penulisan nama atau gelar.</p></div></div>
+<div class="opening" id="opening" role="dialog" aria-modal="true" aria-label="Sampul undangan"><div class="op-panel op-l"><img class="orn corner tl" src="assets/images/orn-lush-corner.svg" alt="" aria-hidden="true"><img class="orn corner bl" src="assets/images/orn-lush-corner.svg" alt="" aria-hidden="true"><img class="orn lantern" src="assets/images/orn-lantern.svg" alt="" aria-hidden="true" style="left:17%;top:0"></div><div class="op-panel op-r"><img class="orn corner tr" src="assets/images/orn-lush-corner.svg" alt="" aria-hidden="true"><img class="orn bouquet" src="assets/images/orn-bouquet.svg" alt="" aria-hidden="true"><img class="orn lantern" src="assets/images/orn-lantern.svg" alt="" aria-hidden="true" style="right:17%;top:0;animation-delay:-2s"></div><div class="op-fx" id="op-fx" aria-hidden="true"></div><div class="op-center"><img class="orn garland" src="assets/images/orn-garland.svg" alt="" aria-hidden="true"><div class="o-photo rise" style="--d:.1s"><span class="o-ring"></span><img src="assets/images/gallery-4.jpg" alt="Foto prewedding Naufal dan Yulianti"></div><p class="o-eyebrow rise" style="--d:.5s">Undangan Pernikahan</p><p class="o-guest rise" style="--d:.7s">Kepada Yth.<b id="opening-guest">Bapak/Ibu/Saudara/i</b></p><p class="o-status" id="opening-status" role="status" aria-live="polite" hidden></p><button class="o-retry" id="opening-retry" type="button" hidden>Coba lagi</button><div class="o-rule rise" style="--d:.9s"><span>♥</span></div><p class="o-invite rise" style="--d:1s">Dengan segala kerendahan hati, kami mengundang Anda untuk berbagi kebahagiaan di hari pernikahan kami.</p><div class="o-names rise" style="--d:1.15s">Naufal <span>&amp;</span> Yulianti</div><button class="btn o-btn rise" style="--d:1.4s" type="button" id="opening-btn">Buka Undangan</button><p class="o-note rise" style="--d:1.6s">Mohon maaf apabila terdapat kesalahan penulisan nama atau gelar.</p></div></div>
 <div class="global-petals" id="global-petals" aria-hidden="true"></div>
 <div class="page">
 <header class="topbar"><nav class="nav" aria-label="Navigasi utama">
@@ -823,18 +832,46 @@ html.reveal-ready #story .collage.visible .cl{animation:clDrop .95s cubic-bezier
     const alert=document.querySelector('.preview-alert');
     if(alert){alert.style.display='none'}
   }
-  function loadInvitationGuest(){
-    if(!invitationToken){showInvitationError('Silakan buka undangan menggunakan link personal yang diberikan kepada Anda untuk melakukan RSVP.');const submit=document.querySelector('#rsvp-form button[type="submit"]');if(submit)submit.disabled=true;return}
-    const callback='invitationGuestCallback_'+Date.now();
+  const coverStatus=$('opening-status'),coverRetry=$('opening-retry');
+  const guestCacheKey='ny-guest:'+invitationToken;
+  function setCoverStatus(text,kind,showRetry){
+    if(!coverStatus)return;
+    coverStatus.textContent=text||'';coverStatus.className='o-status'+(kind?' '+kind:'');coverStatus.hidden=!text;
+    if(coverRetry)coverRetry.hidden=!showRetry;
+  }
+  function setSubmitDisabled(flag){const submit=document.querySelector('#rsvp-form button[type="submit"]');if(submit)submit.disabled=flag}
+  function readGuestCache(){try{const c=JSON.parse(localStorage.getItem(guestCacheKey)||'null');return c&&c.guest&&c.guest.name?c.guest:null}catch(_e){return null}}
+  function writeGuestCache(guest){try{localStorage.setItem(guestCacheKey,JSON.stringify({guest:guest,savedAt:Date.now()}))}catch(_e){}}
+  function clearGuestCache(){try{localStorage.removeItem(guestCacheKey)}catch(_e){}}
+  function loadInvitationGuest(attempt){
+    attempt=attempt||1;
+    if(!invitationToken){showInvitationError('Silakan buka undangan menggunakan link personal yang diberikan kepada Anda untuk melakukan RSVP.');setSubmitDisabled(true);setCoverStatus('',''); return}
+    let cached=null;
+    if(attempt===1){cached=readGuestCache();if(cached)applyGuestDetails(cached);setCoverStatus(cached?'':'Memverifikasi undangan…',cached?'':'loading',false)}
+    const callback='invitationGuestCallback_'+Date.now()+'_'+attempt;
     const script=document.createElement('script');
     let finished=false;
-    const timeout=setTimeout(()=>{cleanup();showInvitationError('Data undangan belum dapat diverifikasi. Periksa koneksi lalu muat ulang halaman.')},10000);
+    const timeout=setTimeout(()=>{cleanup();failed('Server undangan belum merespons. Periksa koneksi internet Anda.')},8000);
     function cleanup(){if(finished)return;finished=true;clearTimeout(timeout);try{delete window[callback]}catch(_e){window[callback]=undefined}script.remove()}
-    window[callback]=(data)=>{cleanup();if(data&&data.ok&&data.guest){applyGuestDetails(data.guest)}else{showInvitationError((data&&data.error)||'Token undangan tidak valid atau sudah dinonaktifkan.');const submit=document.querySelector('#rsvp-form button[type="submit"]');if(submit)submit.disabled=true}};
-    script.onerror=()=>{cleanup();showInvitationError('Gagal memverifikasi link undangan. Silakan coba kembali.')};
+    function failed(message){
+      if(attempt<2){setCoverStatus('Menghubungkan kembali…','loading',false);setTimeout(()=>loadInvitationGuest(attempt+1),1500);return}
+      showInvitationError(message);
+      if(!invitationGuest){setSubmitDisabled(true);console.warn('[Undangan] verifikasi gagal:',message);setCoverStatus('Belum dapat memuat nama undangan Anda. Periksa koneksi internet lalu tekan "Coba lagi".','error',true)}else{setCoverStatus('','')}
+    }
+    window[callback]=(data)=>{
+      cleanup();
+      if(data&&data.ok&&data.guest){applyGuestDetails(data.guest);writeGuestCache(data.guest);setCoverStatus('','');setSubmitDisabled(false)}
+      else{
+        const msg=(data&&data.error)||'Link undangan belum dikenali oleh server.';
+        clearGuestCache();showInvitationError(msg);setSubmitDisabled(true);
+        console.warn('[Undangan] token ditolak server:',msg);setCoverStatus('Link undangan belum terverifikasi. Silakan hubungi pengirim undangan.','error',false);
+      }
+    };
+    script.onerror=()=>{cleanup();failed('Gagal terhubung ke server undangan. Alamat Web App mungkin salah atau belum dibagikan sebagai "Anyone".')};
     script.src=RSVP_ENDPOINT+'?action=guest&token='+encodeURIComponent(invitationToken)+'&callback='+encodeURIComponent(callback)+'&t='+Date.now();
     document.head.appendChild(script);
   }
+  if(coverRetry)coverRetry.addEventListener('click',()=>{setCoverStatus('Memverifikasi undangan…','loading',false);loadInvitationGuest(1)});
   loadInvitationGuest();
 
   // Countdown uses Indonesia Western Time (UTC+7).

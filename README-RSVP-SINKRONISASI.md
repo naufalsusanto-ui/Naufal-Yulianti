@@ -20,3 +20,12 @@
 
 ## Catatan URL
 URL `/exec` yang dipasang berdasarkan screenshot deployment. Jika URL resmi pada dialog **Manage deployments** berbeda satu karakter pun, salin URL dari dialog tersebut dan ganti di `index.html`.
+
+## Pembaruan: verifikasi nama tamu di sampul
+- `google-apps-script/Code.gs` kini disertakan di repositori dan memiliki `version` pada health check.
+  Setelah Deploy > New version, buka `URL/exec?action=health` dan pastikan muncul `"version":"2026-11-02-token-status"`.
+  Jika tidak muncul, deployment masih memakai kode lama.
+- Tes satu token dari editor Apps Script: buka `tesTokenDariEditor()`, ganti `TOKEN_TES`, jalankan, lalu lihat Execution log.
+- Di sampul, `index.html` menampilkan "Memverifikasi undangan…", mencoba ulang sekali otomatis, lalu memunculkan tombol "Coba lagi"
+  bila gagal. Nama tamu yang sudah terverifikasi disimpan di perangkat tamu agar langsung tampil saat dibuka kembali.
+- Detail teknis kegagalan ada di konsol browser (F12) dan pada kotak informasi di bagian Konfirmasi Kehadiran.
