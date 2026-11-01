@@ -21,7 +21,7 @@
  * Tipe yang didukung: Individu atau Keluarga.
  */
 const CONFIG = Object.freeze({
-  VERSION: '2026-11-02-token-status',
+  VERSION: '2026-11-02-rsvp-upsert',
   SHEET_NAME: 'RSVP',
   INVITATION_SHEET: 'Undangan',
   SITE_URL: 'https://naufalsusanto-ui.github.io/Naufal-Yulianti/',
@@ -61,7 +61,8 @@ function doGet(e) {
         id:guest.id, name:guest.name,
         salutation:guest.salutation,
         displayName: buildDisplayName_(guest),
-        type:guest.type, maxGuests:guest.maxGuests
+        type:guest.type, maxGuests:guest.maxGuests,
+        rsvp: guest.rsvpStatus ? {status:guest.rsvpStatus, guests:Number(guest.rsvpGuests)||0} : null
       }});
     }
     if (action === 'wishes') {
@@ -104,10 +105,14 @@ function doPost(e) {
 
     const sheet = getOrCreateRsvpSheet_();
     const requestId = Utilities.getUuid();
-    sheet.appendRow([
+    const rsvpRow = [
       new Date(), safeCell_(name), attendance, guests, safeCell_(message),
       show ? 'Ya' : 'Tidak', requestId, guest.id, token
-    ]);
+    ];
+    // Satu undangan = satu baris RSVP: bila sudah pernah mengisi, baris lama diperbarui (bukan ditambah).
+    const existingRow = findRsvpRow_(sheet, guest.id);
+    if (existingRow) sheet.getRange(existingRow, 1, 1, rsvpRow.length).setValues([rsvpRow]);
+    else sheet.appendRow(rsvpRow);
     updateGuestRsvp_(guest.row, attendance, guests, new Date());
     return jsonResponse_({ok:true, message:'RSVP berhasil disimpan.', id:requestId});
   } catch (err) {
@@ -220,7 +225,8 @@ function findGuestByToken_(token) {
         row:i+2, id:String(rows[i][0] || '').trim(), name:String(rows[i][1] || '').trim(),
         type:type, maxGuests:Math.max(1,Math.min(Number.isInteger(max)?max:1,CONFIG.ABSOLUTE_MAX_GUESTS)),
         status:String(rows[i][6] || 'Aktif').trim() || 'Aktif',
-        salutation:String(rows[i][11] || '').trim()
+        salutation:String(rows[i][11] || '').trim(),
+        rsvpStatus:String(rows[i][7] || '').trim(), rsvpGuests:String(rows[i][8] || '').trim()
       };
     }
   }
@@ -240,6 +246,13 @@ function buildDisplayName_(guest) {
   return guest.type === 'Keluarga' ? base + ' & Keluarga' : base;
 }
 
+function findRsvpRow_(sheet, guestId) {
+  const last = sheet.getLastRow();
+  if (last < 2 || !guestId) return 0;
+  const ids = sheet.getRange(2, 8, last - 1, 1).getDisplayValues(); // kolom H = ID Undangan
+  for (let i = ids.length - 1; i >= 0; i--) if (String(ids[i][0]).trim() === guestId) return i + 2;
+  return 0;
+}
 function updateGuestRsvp_(row, attendance, guests, timestamp) {
   const sh = getInvitationSheet_();
   sh.getRange(row,8,1,3).setValues([[attendance, guests, timestamp]]);
